@@ -53,7 +53,10 @@ class App extends Component {
         if (this.userIsLoggedIn()) {
             this.renderView(<Home/>);
         } else {
-            this.renderView(<HomeGuest/>);
+            this.renderView(<HomeGuest
+                registerClick={this.renderRegister.bind(this)}
+                loginClick={this.renderLogin.bind(this)}
+            />);
         }
     }
 

@@ -9,7 +9,7 @@ export default class Navigation extends Component {
             ]
         } else {
             menuItems = [
-                <li key="register" className="nav-item" onClick={this.props.register}><a className="nav-link" href="#">Register</a></li>,
+                <li key="register" className="nav-item" onClick={this.props.register}><a className="nav-link" href="#">Sign-up</a></li>,
                 <li key="login" className="nav-item" onClick={this.props.login}><a className="nav-link" href="#">Log-in</a></li>,
             ]
         }
@@ -21,7 +21,7 @@ export default class Navigation extends Component {
                     {menuItems}
                 </ul>
 
-                <h1 className="h2 text-muted">Calendar+</h1>
+                <h1 className="h2 text-muted" onClick={this.props.home}>Calendar+</h1>
             </nav>
         );
     }
