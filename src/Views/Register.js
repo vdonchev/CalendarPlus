@@ -15,7 +15,7 @@ export default class Register extends Component {
                             <label htmlFor="registerPassword">Password</label>
                             <input type="password" className="form-control" id="registerPassword" name="password"
                                    required
-                                   ref={(val) => this.password = val} defaultValue="pass"/>
+                                   ref={(val) => this.password = val} defaultValue=""/>
                         </div>
                         <button type="submit" className="btn btn-default">Register</button>
                     </form>

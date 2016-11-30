@@ -82,22 +82,10 @@ class App extends Component {
         Request.register(username, password)
             .then(registerSuccess.bind(this));
 
-        function registerSuccess(userInfo) {
-            this.saveAuthInSession(userInfo);
+        function registerSuccess(userData) {
+            this.saveAuthorizationData(userData);
             this.renderHome();
         }
-    }
-
-    saveAuthInSession(userInfo) {
-        sessionStorage.setItem('authToken', userInfo._kmd.authtoken);
-        sessionStorage.setItem('userId', userInfo._id);
-        sessionStorage.setItem('username', userInfo.username);
-
-        this.setState({
-            username: userInfo.username,
-            userId: userInfo._id,
-            userToken: userInfo._kmd.authtoken
-        });
     }
 
     logout() {
