@@ -30,12 +30,12 @@ let Request = (function () {
     }
 
     function logout() {
-
         return $.post({
             url: appUrl + 'user/' + appId + '/_logout',
             headers: {
-                "Authorization": `Kinvey ${sessionStorage.getItem('authToken')}`
-            }
+                "Authorization": `Kinvey ${sessionStorage.getItem('userToken')}`
+            },
+            contentType: 'application/json'
         });
     }
 
