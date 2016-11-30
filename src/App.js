@@ -61,7 +61,7 @@ class App extends Component {
     }
 
     renderRegister() {
-        this.renderView(<Register/>);
+        this.renderView(<Register submit={this.register.bind(this)}/>);
     }
 
     renderLogin() {
@@ -76,6 +76,28 @@ class App extends Component {
 
                 this.renderHome();
             });
+    }
+
+    register(username, password) {
+        Request.register(username, password)
+            .then(registerSuccess.bind(this));
+
+        function registerSuccess(userInfo) {
+            this.saveAuthInSession(userInfo);
+            this.renderHome();
+        }
+    }
+
+    saveAuthInSession(userInfo) {
+        sessionStorage.setItem('authToken', userInfo._kmd.authtoken);
+        sessionStorage.setItem('userId', userInfo._id);
+        sessionStorage.setItem('username', userInfo.username);
+
+        this.setState({
+            username: userInfo.username,
+            userId: userInfo._id,
+            userToken: userInfo._kmd.authtoken
+        });
     }
 
     logout() {
