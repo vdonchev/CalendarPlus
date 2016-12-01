@@ -16,3 +16,74 @@
 .marketing p + h4 {
     margin-top: 1.5rem;
 }
+
+table {
+    table-layout: fixed;
+    border: none !important;
+    border-collapse: separate !important;
+    border-spacing: 3px;
+}
+
+table th {
+    text-align: center;
+
+}
+
+table td {
+    font-weight: bold !important;
+    vertical-align: baseline !important;
+    line-height: 2em !important;
+    position: relative !important;
+    text-align: center !important;
+    font-size: 2em !important;
+    cursor: pointer;
+    padding: 0.5em 0 !important;
+}
+
+.task-count {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    font-size: 0.4em !important;
+    background: rebeccapurple;
+    line-height: 1.35em;
+    color: #ffffff;
+    font-weight: normal;
+    cursor: pointer;
+    pointer-events: none;
+}
+
+td.today div.current {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    font-size: 0.5em !important;
+    line-height: 1.35em;
+    font-weight: normal;
+    color: lightgray;
+    pointer-events: none;
+}
+
+td.inactive {
+    background: #eee;
+    cursor: default;
+}
+
+td.today {
+    box-shadow: 0 0 0.5em rgba(0,0,0,0.15) inset;
+}
+
+td.selected {
+    border: 1px solid rebeccapurple;
+}
+
+#prev-month, #next-month {
+    display: inline-block;
+    float: left;
+}
+
+#next-month {
+    float: right;
+}

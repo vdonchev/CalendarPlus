@@ -1,0 +1,55 @@
+span.label {
+    border: 1px solid darkgray;
+    border-radius: 5em;
+    padding: 0.3em 0.5em;
+    cursor: default;
+}
+
+span.add-label {
+    background: darkgray;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+span.task-title {
+    cursor: pointer;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+span.task-category {
+    display: inline-block;
+    margin-right: 1em;
+    border-radius: 100%;
+    width: 1em;
+    height: 1em;
+}
+
+span.task-personal {
+    background: gray;
+}
+
+span.task-business {
+    background: rebeccapurple;
+}
+
+span.task-shopping {
+    background: yellowgreen;
+}
+
+span.task-work {
+    background: darkred;
+}
+
+div.paging > div {
+    cursor: pointer;
+}
+
+div.task-administration {
+    font-weight: bold;
+}
+
+.task-content {
+    display: none;
+}

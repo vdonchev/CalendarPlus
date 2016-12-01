@@ -37,6 +37,10 @@ let Request = (function () {
         });
     }
 
+    // function getTasks(day, dateId) {
+    //
+    // }
+
     return {
         register,
         login,
