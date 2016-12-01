@@ -8,6 +8,7 @@ export default class Login extends Component {
             <div className="row">
                 <div className="col-md-5">
                     <form onSubmit={this.processLogin.bind(this)}>
+                        <h1>Login</h1>
                         <div className="form-group">
                             <label htmlFor="loginUsername">Username</label>
                             <input type="text" className="form-control" id="loginUsername" placeholder="Username"

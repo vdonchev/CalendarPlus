@@ -8,9 +8,11 @@ export default class Register extends Component {
                 <div className="col-md-5">
                     <form onSubmit={this.processRegister.bind(this)}>
                         <h1>Register</h1>
+                        <div className="form-group">
                         <label htmlFor="registerUsername">Username</label>
                         <input type="text" className="form-control" id="registerUsername" name="username" required
                                ref={(val) => this.username = val} defaultValue=""/>
+                        </div>
                         <div className="form-group">
                             <label htmlFor="registerPassword">Password</label>
                             <input type="password" className="form-control" id="registerPassword" name="password"
