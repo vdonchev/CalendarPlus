@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import Tasks from './Tasks';
 
-import './Home.css';
+import './Calendar.css';
 
-export default class Home extends Component {
+export default class Calendar extends Component {
     constructor(props) {
         super(props);
 
