@@ -39,14 +39,20 @@ let Request = (function () {
         });
     }
 
-    // function getTasks(day, dateId) {
-    //
-    // }
+    function getTasksPerDay(dateId, day) {
+        return $.get({
+            url: appUrl + 'appdata/' + appId + `/tasks?query={"dateId":${dateId}, "day":${day}}`,
+            headers: {
+                "Authorization": `Kinvey ${sessionStorage.getItem('userToken')}`
+            }
+        });
+    }
 
     return {
         register,
         login,
-        logout
+        logout,
+        getTasksPerDay
     }
 })();
 

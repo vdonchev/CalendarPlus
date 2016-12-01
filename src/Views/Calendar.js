@@ -20,8 +20,6 @@ export default class Calendar extends Component {
             selectedYear: now.getFullYear(),
             dateId: now.getFullYear() + '' + now.getMonth()
         };
-
-        console.log(this.state.dateId)
     }
 
     render() {
@@ -128,7 +126,7 @@ export default class Calendar extends Component {
                     <div className="add-new-task">
                         <h4>Tasks</h4>
                         <hr/>
-                        <Tasks dateId="" day=""/>
+                        <Tasks dateId={this.state.dateId} day={this.state.selectedDay}/>
                     </div>
                 </div>
             </div>

@@ -6,7 +6,7 @@ import Footer from './Components/Footer';
 
 import Request from './Core/Request';
 
-import Home from './Views/Home';
+import Calendar from './Views/Calendar';
 import HomeGuest from './Views/HomeGuest';
 import Register from './Views/Register';
 import Login from './Views/Login';
@@ -51,7 +51,7 @@ class App extends Component {
 
     renderHome() {
         if (this.userIsLoggedIn()) {
-            this.renderView(<Home/>);
+            this.renderView(<Calendar/>);
         } else {
             this.renderView(<HomeGuest
                 registerClick={this.renderRegister.bind(this)}
