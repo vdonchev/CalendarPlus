@@ -61,7 +61,7 @@ class App extends Component {
     }
 
     renderRegister() {
-        this.renderView(<Register/>);
+        this.renderView(<Register submit={this.register.bind(this)}/>);
     }
 
     renderLogin() {
@@ -73,7 +73,14 @@ class App extends Component {
         Request.login(username, password)
             .then((data) => {
                 this.saveAuthorizationData(data);
+                this.renderHome();
+            });
+    }
 
+    register(username, password) {
+        Request.register(username, password)
+            .then((userData) => {
+                this.saveAuthorizationData(userData);
                 this.renderHome();
             });
     }
@@ -93,7 +100,7 @@ class App extends Component {
             })
     }
 
-    // Helpers
+// Helpers
     saveAuthorizationData(data) {
         sessionStorage.setItem('username', data.username);
         sessionStorage.setItem('userId', data._id);
