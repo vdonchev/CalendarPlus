@@ -55,7 +55,10 @@ class App extends Component {
         if (this.userIsLoggedIn()) {
             Request.getTasksPerMonth(this.state.selectedMonthId)
                 .then((tasks) => {
-                    this.renderView(<Calendar tasks={tasks}/>);
+                    this.setState({
+                        tasks: tasks
+                    });
+                    this.renderView(<Calendar tasks={this.state.tasks} onMonthChange={this.updateDateId.bind(this)}/>);
                 });
         } else {
             this.renderView(<HomeGuest
@@ -64,6 +67,7 @@ class App extends Component {
             />);
         }
     }
+
     renderRegister() {
         this.renderView(<Register submit={this.register.bind(this)}/>);
     }
@@ -73,6 +77,14 @@ class App extends Component {
     }
 
     // Actions
+    updateDateId(dateId) {
+        this.setState({
+            selectedMonthId: dateId
+        });
+
+        this.renderHome();
+    }
+
     login(username, password) {
         Request.login(username, password)
             .then((data) => {

@@ -21,11 +21,11 @@ export default class Calendar extends Component {
     }
 
     render() {
-        console.log(this.props.tasks);
         return this.renderCalendar();
     }
 
     renderCalendar() {
+        console.log(this.props.tasks);
         let monthNames = ["January", "February", "March", "April", "May", "June",
             "July", "August", "September", "October", "November", "December"
         ];
@@ -131,10 +131,12 @@ export default class Calendar extends Component {
 
     decreaseMonth() {
         this.setState({mothValue: this.state.mothValue - 1});
+        this.props.onMonthChange(20165)
     }
 
     increaseMonth() {
         this.setState({mothValue: this.state.mothValue + 1});
+        this.props.onMonthChange(20165)
     }
 
     isToday(day, month, year) {
