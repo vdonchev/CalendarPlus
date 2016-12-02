@@ -48,11 +48,21 @@ let Request = (function () {
         });
     }
 
+    function getTasksPerMonth(dateId) {
+        return $.get({
+            url: appUrl + 'appdata/' + appId + `/tasks?query={"dateId":${dateId}}`,
+            headers: {
+                "Authorization": `Kinvey ${sessionStorage.getItem('userToken')}`
+            }
+        });
+    }
+
     return {
         register,
         login,
         logout,
-        getTasksPerDay
+        getTasksPerDay,
+        getTasksPerMonth
     }
 })();
 

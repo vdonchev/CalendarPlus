@@ -1,12 +1,10 @@
 import React, {Component} from 'react';
-import Tasks from './Tasks';
 
 import './Calendar.css';
 
 export default class Calendar extends Component {
     constructor(props) {
         super(props);
-
         let now = new Date();
         this.state = {
             mothValue: 0,
@@ -23,7 +21,8 @@ export default class Calendar extends Component {
     }
 
     render() {
-        return this.renderCalendar()
+        console.log(this.props.tasks);
+        return this.renderCalendar();
     }
 
     renderCalendar() {
@@ -97,8 +96,9 @@ export default class Calendar extends Component {
 
         return (
             <div className="row marketing">
-                <div className="col-lg-8 text-center">
-                    <h4 className="text-left">{monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}</h4>
+                <div className="col-md-12 text-center">
+                    <h2 className="h1">{monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}</h2>
+                    <p>Choose a day to add/view Tasks</p>
                     <hr/>
                     <table className="table table-bordered calendar">
                         <thead>
@@ -116,18 +116,14 @@ export default class Calendar extends Component {
                         {rows}
                         </tbody>
                     </table>
-                    <div className="paging">
-                        <div id="prev-month"><a href="#" onClick={this.decreaseMonth.bind(this)}>&lt;&lt; Previous</a>
-                        </div>
-                        <div id="next-month"><a href="#" onClick={this.increaseMonth.bind(this)}>Next &gt;&gt;</a></div>
-                    </div>
-                </div>
-                <div className="col-lg-4" id="tasks">
-                    <div className="add-new-task">
-                        <h4>Tasks</h4>
-                        <hr/>
-                        <Tasks dateId={this.state.dateId} day={this.state.selectedDay}/>
-                    </div>
+                    <nav className="paging" aria-label="Page navigation">
+                        <ul className="pager">
+                            <li className="previous"><a href="#" onClick={this.decreaseMonth.bind(this)}><span
+                                aria-hidden="true">&larr;</span> Previous</a></li>
+                            <li className="next"><a href="#" onClick={this.increaseMonth.bind(this)}>Next <span
+                                aria-hidden="true">&rarr;</span></a></li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         )

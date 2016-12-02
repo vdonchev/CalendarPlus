@@ -17,10 +17,12 @@ class App extends Component {
     constructor(props) {
         super(props);
 
+        let date = new Date();
         this.state = {
             username: sessionStorage.getItem("username"),
             userId: sessionStorage.getItem("userId"),
-            userToken: sessionStorage.getItem("userToken")
+            userToken: sessionStorage.getItem("userToken"),
+            selectedMonthId: Number(date.getFullYear() + '' + date.getMonth())
         }
     }
 
@@ -51,7 +53,10 @@ class App extends Component {
 
     renderHome() {
         if (this.userIsLoggedIn()) {
-            this.renderView(<Calendar/>);
+            Request.getTasksPerMonth(this.state.selectedMonthId)
+                .then((tasks) => {
+                    this.renderView(<Calendar tasks={tasks}/>);
+                });
         } else {
             this.renderView(<HomeGuest
                 registerClick={this.renderRegister.bind(this)}
@@ -59,7 +64,6 @@ class App extends Component {
             />);
         }
     }
-
     renderRegister() {
         this.renderView(<Register submit={this.register.bind(this)}/>);
     }
