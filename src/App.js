@@ -1,141 +1,63 @@
 import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
-
-import Header from './Components/Header';
-import Footer from './Components/Footer';
-
-import Request from './Core/Request';
-
-import Calendar from './Views/Calendar';
-import HomeGuest from './Views/HomeGuest';
-import Register from './Views/Register';
-import Login from './Views/Login';
-
-import './App.css';
+import Header from './components/common/Header';
+import Navbar from './components/common/Navbar';
+import Infobox from  './components/common/Infobox';
+import {Link} from 'react-router';
+import observer from './models/observer';
 
 class App extends Component {
     constructor(props) {
         super(props);
+        this.state = { loggedIn: false, username: '' };
+        observer.onSessionUpdate = this.onSessionUpdate.bind(this);
+    }
 
-        let date = new Date();
-        this.state = {
-            username: sessionStorage.getItem("username"),
-            userId: sessionStorage.getItem("userId"),
-            userToken: sessionStorage.getItem("userToken"),
-            selectedMonthId: Number(date.getFullYear() + '' + date.getMonth())
+    componentDidMount() {
+        this.onSessionUpdate();
+    }
+
+    onSessionUpdate() {
+        let name = sessionStorage.getItem("username");
+        if (name) {
+            this.setState({ loggedIn: true, username: sessionStorage.getItem("username") });
+        } else {
+            this.setState({ loggedIn: false, username: '' });
         }
     }
 
     render() {
+        let navbar = {};
+        if (!this.state.loggedIn) {
+            navbar = (
+                    <Navbar>
+                        <Link to="/" className="btn btn-default" activeClassName="btn btn-default active" onlyActiveOnIndex={true}>Home</Link>
+                        <Link to="/about" className="btn btn-default" activeClassName="btn btn-default active">About</Link>
+                        <Link to="/login" className="btn btn-default" activeClassName="btn btn-default active">Login</Link>
+                        <Link to="/register" className="btn btn-default" activeClassName="btn btn-default active">Register</Link>
+                    </Navbar>
+                );
+        } else {
+            navbar = (
+                <Navbar>
+                    <Link to="/" className="btn btn-default" activeClassName="btn btn-default active" onlyActiveOnIndex={true}>Home</Link>
+                    <Link to="/calendar" className="btn btn-default" activeClassName="btn btn-default active">Calendar</Link>
+                    <Link to="/create" className="btn btn-default" activeClassName="btn btn-default active">Create Tasks</Link>
+                    <Link to="/about" className="btn btn-default" activeClassName="btn btn-default active">About</Link>
+                    <Link to="/logout" className="btn btn-default" activeClassName="btn btn-default active">Logout</Link>
+                </Navbar>
+            );
+        }
+
         return (
             <div className="container">
-                <Header
-                    userLoggedIn={this.userIsLoggedIn()}
-                    homeClick={this.renderHome.bind(this)}
-                    registerClick={this.renderRegister.bind(this)}
-                    loginClick={this.renderLogin.bind(this)}
-                    logoutClick={this.logout.bind(this)}
-                />
-                <div id="view"></div>
-                <Footer/>
+                <Header loggedIn={this.state.loggedIn} user={this.state.username}>
+                    {navbar}
+                </Header>
+                {this.props.children}
+                <Infobox/>
             </div>
-        );
-    }
-
-    componentDidMount() {
-        this.renderHome();
-    }
-
-    // Views
-    renderView(component) {
-        ReactDOM.render(component, document.getElementById('view'));
-    }
-
-    renderHome() {
-        if (this.userIsLoggedIn()) {
-            Request.getTasksPerMonth(this.state.selectedMonthId)
-                .then((tasks) => {
-                    this.setState({
-                        tasks: tasks
-                    });
-                    this.renderView(<Calendar tasks={this.state.tasks} onMonthChange={this.updateDateId.bind(this)}/>);
-                });
-        } else {
-            this.renderView(<HomeGuest
-                registerClick={this.renderRegister.bind(this)}
-                loginClick={this.renderLogin.bind(this)}
-            />);
-        }
-    }
-
-    renderRegister() {
-        this.renderView(<Register submit={this.register.bind(this)}/>);
-    }
-
-    renderLogin() {
-        this.renderView(<Login submit={this.login.bind(this)}/>);
-    }
-
-    // Actions
-    updateDateId(dateId) {
-        this.setState({
-            selectedMonthId: dateId
-        });
-
-        this.renderHome();
-    }
-
-    login(username, password) {
-        Request.login(username, password)
-            .then((data) => {
-                this.saveAuthorizationData(data);
-                this.renderHome();
-            });
-    }
-
-    register(username, password) {
-        Request.register(username, password)
-            .then((userData) => {
-                this.saveAuthorizationData(userData);
-                this.renderHome();
-            });
-    }
-
-    logout() {
-        Request.logout()
-            .then(() => {
-                sessionStorage.clear();
-
-                this.setState({
-                    username: null,
-                    userId: null,
-                    userToken: null
-                });
-
-                this.renderHome();
-            })
-    }
-
-// Helpers
-    saveAuthorizationData(data) {
-        sessionStorage.setItem('username', data.username);
-        sessionStorage.setItem('userId', data._id);
-        sessionStorage.setItem('userToken', data._kmd.authtoken);
-
-        this.setState({
-            username: data.username,
-            userId: data._id,
-            userToken: data._kmd.authtoken
-        })
-    }
-
-    userIsLoggedIn() {
-        return (
-            this.state.username != null &&
-            this.state.userId != null &&
-            this.state.userToken != null
-        );
+        )
     }
 }
 
-export default App
+export default App;
