@@ -1,40 +1,47 @@
 // eslint-disable-next-line
 import {get, post, update} from './requester';
 
-function loadTasks(callback) {
-    // Request teams from db
+function loadAllTasks(callback) {
     get('appdata', 'tasks', 'kinvey')
         .then(callback);
 }
 
-function loadTaskDetails(dateId, onTeamSuccess) {
-    get('appdata', 'tasks/' + dateId, 'kinvey')
+function loadDayTasks(dateId, day, onTeamSuccess) {
+    let jsonUri = `tasks?query={"day":${day}, "dateId":${dateId}`;
+    get('appdata', jsonUri , 'kinvey')
         .then(onTeamSuccess);
 }
 
-function loadUsersDetails(dateId, onUsersSuccess) {
+function loadMonthTasks(dateId, onUsersSuccess) {
     get('user', `?query={"dateId": "${dateId}"}`, 'kinvey')
         .then(onUsersSuccess);
 }
 
-function edit(dateId, name, description, callback) {
-    let teamData = {
-        name: name,
-        comment: description
+function edit(dateId, title, body, callback) {
+    let taskData = {
+        title: title,
+        body: body
     };
-    update('appdata', 'tasks/' + dateId, teamData, 'kinvey')
+    update('appdata', 'tasks/' + dateId, taskData, 'kinvey')
         .then(callback(true));
 }
 
-function create(name, description, callback) {
-    let teamData = {
-        name: name,
-        comment: description
+function create(title, body, callback) {
+    let taskData = {
+        title: title,
+        body: body
     };
-    post('appdata', 'tasks', teamData, 'kinvey')
+    post('appdata', 'tasks', taskData, 'kinvey')
         .then((response) => {
             //task created successfully
         });
 }
 
-export {loadTasks, loadTaskDetails, loadUsersDetails, edit, create};
+function getTodayTasks(dateId, day, callback){
+
+    let jsonUri = `tasks?query={"day":${day}, "dateId":${dateId}`;
+    get('appdata', jsonUri, 'kinvey')
+        .then(callback);
+}
+
+export {getTodayTasks, loadAllTasks, loadDayTasks, loadMonthTasks, edit, create};

@@ -5,11 +5,11 @@ import './Tasks.css';
 export default class Tasks extends Component {
     render() {
         return(
-            <Link to={"/create/" + this.props.id} className="tasks-box">
+            <Link to={"/create/" + this.props.taskId} className="tasks-box">
                 <span className="spanner">Task</span>
-                <span className="title">{this.props.name}</span>
+                <span className="title">{this.props.title}</span>
                 <span className="spanner">Description</span>
-                <p>{this.props.description || 'No description'}</p>
+                <p>{this.props.body || 'No description'}</p>
             </Link>
         )
     }

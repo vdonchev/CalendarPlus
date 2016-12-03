@@ -4,6 +4,7 @@ export default class RegisterForm extends Component {
     render() {
         return (
             <form onSubmit={this.props.onSubmitHandler}>
+                <h5><p>Usernames and passwords must be at least 3 characters long!</p></h5>
                 <div className="form-group">
                     <label>Username:</label>
                     <input
@@ -27,7 +28,7 @@ export default class RegisterForm extends Component {
                     />
                 </div>
                 <div className="form-group">
-                    <label>Repeat Password:</label>
+                    <label>Confirm Password:</label>
                     <input
                         className="form-control"
                         type="password"

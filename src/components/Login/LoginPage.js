@@ -5,7 +5,7 @@ import {login} from '../../models/user';
 export default class LoginPage extends Component {
     constructor(props) {
         super(props);
-        this.state = { username: '', password: '', submitDisabled: false };
+        this.state = {username: '', password: '', submitDisabled: false};
         this.bindEventHandlers();
     }
 
@@ -19,10 +19,10 @@ export default class LoginPage extends Component {
     onChangeHandler(event) {
         switch (event.target.name) {
             case 'username':
-                this.setState({ username: event.target.value });
+                this.setState({username: event.target.value});
                 break;
             case 'password':
-                this.setState({ password: event.target.value });
+                this.setState({password: event.target.value});
                 break;
             default:
                 break;
@@ -31,7 +31,7 @@ export default class LoginPage extends Component {
 
     onSubmitHandler(event) {
         event.preventDefault();
-        this.setState({ submitDisabled: true });
+        this.setState({submitDisabled: true});
         login(this.state.username, this.state.password, this.onSubmitResponse);
     }
 
@@ -39,7 +39,7 @@ export default class LoginPage extends Component {
         if (response === true) {
             this.context.router.push('/');
         } else {
-            this.setState({ submitDisabled: false });
+            this.setState({submitDisabled: false});
         }
     }
 

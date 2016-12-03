@@ -26,7 +26,7 @@ function login(username, password, callback) {
         .catch((error) => {
             observer.handleAjaxError(error);
             callback(false);
-        })
+        });
 
     function loginSuccess(userInfo) {
         saveSession(userInfo);
@@ -47,7 +47,7 @@ function register(username, password, callback) {
         .catch((error) => {
             observer.handleAjaxError(error);
             callback(false);
-        })
+        });
 
     function registerSuccess(userInfo) {
         observer.showSuccess('Registered successfully.');
@@ -61,12 +61,13 @@ function logout(callback) {
     requester.post('user', '_logout', null, 'kinvey')
         .then(logoutSuccess)
         .catch((error) => {
+            sessionStorage.clear();
             observer.handleAjaxError(error);
-            callback(false);
+            observer.onSessionUpdate();
         });
 
 
-    function logoutSuccess(response) {
+    function logoutSuccess() {
         sessionStorage.clear();
         observer.onSessionUpdate();
         callback(true);
@@ -76,7 +77,7 @@ function logout(callback) {
 
 function deleteTask(callback) {
     let userData = {
-       //fill in data
+       //fill in data by which to delete the task
     };
     requester.update('tasks', sessionStorage.getItem('userId'), userData, 'kinvey')
         .then((response) => {

@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {loadTasks, loadTaskDetails} from '../../models/task';
 import TaskControls from './TaskControls';
 import './Details.css';
 import {deleteTask} from "../../models/user";
@@ -31,18 +30,22 @@ export default class Details extends Component {
     }
 
     statusChange(response) {
-        //TO DO perform routing?
+        //perform something after deletion?
+        // TO DO: perform routing, ?
         this.context.router.push('/');
     }
 
     componentDidMount() {
-        loadTasks(this.onLoadSuccess);
+        // TO DO: find a way to pass the specific day / id for the task here
+        //when you click on edit on a specific task
+
+        //loadDayTask(this.onLoadSuccess);
     }
 
     onLoadSuccess(response) {
         let newState = {
-            name: response.name,
-            description: response.comment
+            title: response.title,
+            body: response.body
         };
         if (response._acl.creator === sessionStorage.getItem('userId')) {
             newState.canEdit = true;
@@ -52,15 +55,22 @@ export default class Details extends Component {
     }
 
     onUsersSuccess(response) {
+        let temp = [];
+        for(let entry of response){
+            if(entry._acl.creator === sessionStorage.getItem()){
+                temp.push(entry);
+            }
+        }
+
         this.setState({
-            tasks: response
+            tasks: temp
         });
     }
 
     render() {
         let title = 'Task details';
-        if (this.state.name !== '') {
-            title = this.state.name + ' details';
+        if (this.state.title !== '') {
+            title = this.state.title + ' details';
         }
 
         //add task details
@@ -71,7 +81,7 @@ export default class Details extends Component {
                 <span className="spanner">Tasks</span>
                 {this.state.tasks}
                 <span className="spanner">Description</span>
-                <p>{this.state.description || 'No description'}</p>
+                <p>{this.state.body || 'No description'}</p>
                 <span className="spanner">Task management</span>
                 <TaskControls canEdit={this.state.canEdit}
                 />

@@ -1,16 +1,12 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router';
 
 export default class HomePage extends Component {
     render() {
-        let message = <p>You are currently not logged in. Please, log in or register to view team options.</p>;
+        let message = <p>You are currently not logged in. Please, log in or register to review your tasks.</p>;
 
         if (sessionStorage.getItem('username')) {
-            if (sessionStorage.getItem('teamId')) {
-                message = <Link to={"/calendar/" + sessionStorage.getItem('teamId')}>Go to my tasks</Link>
-            } else {
-                message = <p>You are currently not a member of a team. View the <Link to="/calendar">catalog</Link> to join or create one.</p>;
-            }
+            // TO DO: implement todayTasks
+                message = <p>You have {this.props.todayTasks} tasks assigned for today!</p>
         }
         return (
             <div>

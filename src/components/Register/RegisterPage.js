@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import RegisterForm from './RegisterForm';
 import {register} from '../../models/user';
+import observer from '../../models/observer';
 
 export default class RegisterPage extends Component {
     constructor(props) {
@@ -35,9 +36,20 @@ export default class RegisterPage extends Component {
     onSubmitHandler(event) {
         event.preventDefault();
         if (this.state.password !== this.state.repeat) {
-            this.showError("Passwords don't match");
+            observer.showError("The passwords provided do not match");
             return;
         }
+
+        if(this.state.username.length <= 3){
+            observer.showError("Usernames have to be more than 3 characters");
+            return;
+        }
+
+        if(this.state.password.length <= 3){
+            observer.showError("Passwords have to be more than 3 characters");
+            return;
+        }
+
         this.setState({submitDisabled: true});
         register(this.state.username, this.state.password, this.onSubmitResponse);
     }
@@ -48,7 +60,7 @@ export default class RegisterPage extends Component {
             this.context.router.push('/');
         } else {
             // Something went wrong, let the user try again
-            this.setState({submitDisabled: true});
+            this.setState({submitDisabled: false});
         }
     }
 
@@ -58,7 +70,7 @@ export default class RegisterPage extends Component {
 
         return (
             <div>
-                <span>Login Page</span>
+                <h1>Login Page</h1>
                 <RegisterForm
                     username={this.state.username}
                     password={this.state.password}

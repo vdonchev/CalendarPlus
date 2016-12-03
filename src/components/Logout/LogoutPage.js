@@ -11,13 +11,8 @@ export default class LogoutPage extends Component {
         logout(this.onSubmitResponse.bind(this));
     }
 
-    onSubmitResponse(response) {
-        if (response === true) {
-            // Navigate away from login page
-            this.context.router.push('/');
-        } else {
-            console.log(response);
-        }
+    onSubmitResponse() {
+        this.context.router.push('/');
     }
 
     render() {

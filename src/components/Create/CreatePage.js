@@ -5,7 +5,7 @@ import {create} from '../../models/task';
 export default class CreatePage extends Component {
     constructor(props) {
         super(props);
-        this.state = {name: '', description: '', submitDisabled: false};
+        this.state = {title: '', body: '', submitDisabled: false};
         this.bindEventHandlers();
     }
 
@@ -19,9 +19,9 @@ export default class CreatePage extends Component {
     onChangeHandler(event) {
         event.preventDefault();
         let newState = {};
-        newState[event.target.name] = event.target.value;
+        newState[event.target.title] = event.target.value;
 
-        //TO DO stop users from accessing components directly and perform validation
+        //TO DO: stop users from accessing components directly and perform validation
         if(sessionStorage.getItem('authToken')){
             this.setState(newState);
         }
@@ -31,15 +31,16 @@ export default class CreatePage extends Component {
     onSubmitHandler(event) {
         event.preventDefault();
         this.setState({submitDisabled: true});
-        create(this.state.name, this.state.description, this.onSubmitResponse);
+        create(this.state.title, this.state.body, this.onSubmitResponse);
     }
 
     onSubmitResponse(response) {
         if (response === true) {
             // Navigate away from login page
+
+            //TO DO , task id is the response._id here when created
             this.context.router.push('/');
         } else {
-            // Something went wrong, let the user try again
             this.setState({submitDisabled: true});
         }
     }
@@ -47,10 +48,10 @@ export default class CreatePage extends Component {
     render() {
         return (
             <div>
-                <h1>Create Page</h1>
+                <h1>Create Task</h1>
                 <CreateForm
-                    name={this.state.name}
-                    description={this.state.description}
+                    title={this.state.title}
+                    body={this.state.body}
                     submitDisabled={this.state.submitDisabled}
                     onChangeHandler={this.onChangeHandler}
                     onSubmitHandler={this.onSubmitHandler}

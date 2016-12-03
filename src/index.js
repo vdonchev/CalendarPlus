@@ -5,7 +5,7 @@ import './index.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.css';
 import {IndexRoute, Router, Route, browserHistory} from 'react-router';
 import HomePage from './components/Home/HomePage';
-import Calendar from './components/Calendar/CalendarPage';
+import CalendarPage from './components/Calendar/CalendarPage';
 import About from './components/About/AboutPage';
 import Login from './components/Login/LoginPage';
 import Register from './components/Register/RegisterPage';
@@ -18,15 +18,15 @@ ReactDOM.render(
     <Router history={browserHistory}>
         <Route path="/" component={App}>
             <IndexRoute component={HomePage}/>
-            <Route path="catalog">
-                <IndexRoute component={Calendar}/>
-                <Route path=":teamId" component={Details}/>
+            <Route path="Calendar">
+                <IndexRoute component={CalendarPage}/>
+                <Route path=":taskId" component={Details}/>
             </Route>
             <Route path="about" component={About}/>
             <Route path="login" component={Login}/>
             <Route path="register" component={Register}/>
             <Route path="logout" component={Logout}/>
-            <Route path="edit/:teamId" component={Edit}/>
+            <Route path="edit/:taskId" component={Edit}/>
             <Route path="create" component={Create}/>
         </Route>
     </Router>,

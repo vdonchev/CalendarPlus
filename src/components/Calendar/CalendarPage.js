@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
-import Task from './Tasks';
-import {loadTasks} from '../../models/task';
+import {loadAllTasks} from '../../models/task';
 import {Link} from 'react-router';
+import {Calendar} from './Calendar'
 
 export default class CalendarPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            teams: []
+            tasks: []
         };
         this.bindEventHandlers();
     }
@@ -17,27 +17,28 @@ export default class CalendarPage extends Component {
     }
 
     onLoadSuccess(response) {
-        // Display teams
-        this.setState({teams: response})
+        // Display tasks
+        this.setState({tasks: response})
     }
 
+    //this is a hook which triggers on component creation
     componentDidMount() {
-        // Request list of teams from the server
-        loadTasks(this.onLoadSuccess);
+        // Request all tasks from the server
+        loadAllTasks(this.onLoadSuccess);
     }
 
     render() {
         let createLink = null;
-        if (!sessionStorage.getItem('authToken')) {
-            createLink = <Link to="/create" className="btn btn-default">Create team</Link>
+        if (sessionStorage.getItem('authToken')) {
+            createLink = <Link to="/create" className="btn btn-default">Create a task</Link>
         }
-
         return (
             <div>
                 <h1>Calendar Page</h1>
                 {createLink}
                 <div>
-                    /*print Calendar*/
+                    Your calendar here
+                    /*// TO DO: print calendar here*/
                 </div>
             </div>
         );

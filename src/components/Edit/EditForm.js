@@ -6,27 +6,27 @@ export default class EditForm extends Component {
         return (
             <form onSubmit={this.props.onSubmitHandler}>
                 <div className="form-group">
-                    <label>Name:</label>
+                    <label>Title:</label>
                     <input
                         className="form-control"
                         type="text"
-                        name="name"
-                        value={this.props.name}
+                        name="Title"
+                        value={this.props.title}
                         disabled={this.props.submitDisabled}
                         onChange={this.props.onChangeHandler}
                     />
                 </div>
                 <div className="form-group">
-                    <label>Description:</label>
+                    <label>Body:</label>
                     <textarea
                         className="form-control"
-                        name="description"
-                        value={this.props.description}
+                        name="Body"
+                        value={this.props.body}
                         disabled={this.props.submitDisabled}
                         onChange={this.props.onChangeHandler}
                     />
                 </div>
-                <input className="btn btn-default" type="submit" value="Submit changes" disabled={this.props.submitDisabled}/>
+                <input className="btn btn-default" type="submit" value="Submit" disabled={this.props.submitDisabled}/>
             </form>
         );
     }
