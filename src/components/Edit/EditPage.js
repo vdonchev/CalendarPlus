@@ -11,7 +11,7 @@ export default class EditPage extends Component {
 
     componentDidMount() {
         // Populate form
-        loadTeamDetails(this.props.params.teamId, this.onLoadSuccess);
+        loadTaskDetails(this.props.dateId, this.onLoadSuccess);
     }
 
     bindEventHandlers() {

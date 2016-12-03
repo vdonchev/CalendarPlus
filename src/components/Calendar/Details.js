@@ -7,7 +7,7 @@ import {deleteTask} from "../../models/user";
 export default class Details extends Component {
     constructor(props) {
         super(props);
-        this.state ={
+        this.state = {
             name: '',
             description: '',
             tasks: [],
@@ -31,6 +31,7 @@ export default class Details extends Component {
     }
 
     statusChange(response) {
+        //TO DO perform routing?
         this.context.router.push('/');
     }
 
@@ -46,6 +47,7 @@ export default class Details extends Component {
         if (response._acl.creator === sessionStorage.getItem('userId')) {
             newState.canEdit = true;
         }
+
         this.setState(newState);
     }
 
@@ -71,8 +73,7 @@ export default class Details extends Component {
                 <span className="spanner">Description</span>
                 <p>{this.state.description || 'No description'}</p>
                 <span className="spanner">Task management</span>
-                <TaskControls
-                    canEdit={this.state.canEdit}
+                <TaskControls canEdit={this.state.canEdit}
                 />
             </div>
         )
