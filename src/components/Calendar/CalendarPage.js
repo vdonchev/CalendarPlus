@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {loadAllTasks} from '../../models/task';
 import {Link} from 'react-router';
-import {Calendar} from './Calendar'
+import Calendar from './Calendar'
 
 export default class CalendarPage extends Component {
     constructor(props) {
@@ -9,6 +9,7 @@ export default class CalendarPage extends Component {
         this.state = {
             tasks: []
         };
+
         this.bindEventHandlers();
     }
 
@@ -37,8 +38,7 @@ export default class CalendarPage extends Component {
                 <h1>Calendar Page</h1>
                 {createLink}
                 <div>
-                    Your calendar here
-                    /*// TO DO: print calendar here*/
+                    <Calendar/>
                 </div>
             </div>
         );
