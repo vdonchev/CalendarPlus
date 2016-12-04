@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import CreateForm from '../Edit/EditForm';
 import {create} from '../../models/task';
+import {loadCategories} from '../../models/category';
 
 export default class CreatePage extends Component {
     constructor(props) {
@@ -9,6 +10,8 @@ export default class CreatePage extends Component {
         this.state = {
             title: '',
             body: '',
+            category: '',
+            categories: [<option key='0' value=''>---Choose---</option>],
             submitDisabled: false
         };
 
@@ -19,6 +22,7 @@ export default class CreatePage extends Component {
         this.onChangeHandler = this.onChangeHandler.bind(this);
         this.onSubmitHandler = this.onSubmitHandler.bind(this);
         this.onSubmitResponse = this.onSubmitResponse.bind(this);
+        this.onLoadSuccess = this.onLoadSuccess.bind(this);
     }
 
     onChangeHandler(event) {
@@ -28,6 +32,9 @@ export default class CreatePage extends Component {
                 break;
             case 'body':
                 this.setState({body: event.target.value});
+                break;
+            case 'category':
+                this.setState({category: event.target.value});
                 break;
             default:
                 break;
@@ -43,6 +50,7 @@ export default class CreatePage extends Component {
             '' + this.props.params.year  + this.props.params.month,
             this.state.title,
             this.state.body,
+            this.state.category,
             this.onSubmitResponse
         );
     }
@@ -55,6 +63,19 @@ export default class CreatePage extends Component {
         }
     }
 
+    onLoadSuccess(categories) {
+        console.log(categories)
+        categories.forEach(cat => {
+            this.state.categories.push(<option key={cat._id} value={cat._id}>{cat.title}</option>);
+        });
+
+        this.forceUpdate(); // update number of tasks when ready
+    }
+
+    componentDidMount() {
+        loadCategories(this.onLoadSuccess);
+    }
+
     render() {
         return (
             <div>
@@ -62,9 +83,11 @@ export default class CreatePage extends Component {
                 <CreateForm
                     title={this.state.title}
                     body={this.state.body}
+                    category={this.state.category}
                     submitDisabled={this.state.submitDisabled}
                     onChangeHandler={this.onChangeHandler}
                     onSubmitHandler={this.onSubmitHandler}
+                    options={this.state.categories}
                 />
             </div>
         );

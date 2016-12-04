@@ -17,12 +17,13 @@ function loadMonthTasks(dateId, callback) {
         .then(callback);
 }
 
-function create(day, dateId, title, body, callback) {
+function create(day, dateId, title, body, categoryId, callback) {
     let taskData = {
         day: day,
         dateId: dateId,
         title: title,
-        body: body
+        body: body,
+        categoryId: categoryId
     };
 
     post('appdata', 'tasks', taskData, 'kinvey')
