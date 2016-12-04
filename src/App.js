@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Header from './components/common/Header';
+import Footer from './components/common/Footer';
 import Navbar from './components/common/Navbar';
 import Infobox from  './components/common/Infobox';
 import {Link} from 'react-router';
@@ -8,7 +9,7 @@ import observer from './models/observer';
 class App extends Component {
     constructor(props) {
         super(props);
-        this.state = { loggedIn: false, username: '' };
+        this.state = {loggedIn: false, username: ''};
         observer.onSessionUpdate = this.onSessionUpdate.bind(this);
     }
 
@@ -19,9 +20,9 @@ class App extends Component {
     onSessionUpdate() {
         let name = sessionStorage.getItem("username");
         if (name) {
-            this.setState({ loggedIn: true, username: sessionStorage.getItem("username") });
+            this.setState({loggedIn: true, username: sessionStorage.getItem("username")});
         } else {
-            this.setState({ loggedIn: false, username: '' });
+            this.setState({loggedIn: false, username: ''});
         }
     }
 
@@ -29,21 +30,31 @@ class App extends Component {
         let navbar = {};
         if (!this.state.loggedIn) {
             navbar = (
-                    <Navbar>
-                        <Link to="/" className="btn btn-default" activeClassName="btn btn-default active" onlyActiveOnIndex={true}>Home</Link>
-                        <Link to="/about" className="btn btn-default" activeClassName="btn btn-default active">About</Link>
-                        <Link to="/login" className="btn btn-default" activeClassName="btn btn-default active">Login</Link>
-                        <Link to="/register" className="btn btn-default" activeClassName="btn btn-default active">Register</Link>
-                    </Navbar>
-                );
+                <Navbar>
+                    <li className="nav-item">
+                        <Link to="/" activeClassName="active" onlyActiveOnIndex={true}>Home</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link to="/login" activeClassName="btn btn-default active">Login</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link to="/register" activeClassName="btn btn-default active">Register</Link>
+                    </li>
+                </Navbar>
+            );
         } else {
             navbar = (
                 <Navbar>
-                    <Link to="/" className="btn btn-default" activeClassName="btn btn-default active" onlyActiveOnIndex={true}>Home</Link>
-                    <Link to="/calendar" className="btn btn-default" activeClassName="btn btn-default active">Calendar</Link>
-                    <Link to="/create" className="btn btn-default" activeClassName="btn btn-default active">Create Tasks</Link>
-                    <Link to="/about" className="btn btn-default" activeClassName="btn btn-default active">About</Link>
-                    <Link to="/logout" className="btn btn-default" activeClassName="btn btn-default active">Logout</Link>
+                    <li className="nav-item">
+                        <Link to="/" activeClassName="active"
+                              onlyActiveOnIndex={true}>Home</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link to="/calendar" activeClassName="active">Calendar</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link to="/logout" activeClassName="active">Logout</Link>
+                    </li>
                 </Navbar>
             );
         }
@@ -53,8 +64,10 @@ class App extends Component {
                 <Header loggedIn={this.state.loggedIn} user={this.state.username}>
                     {navbar}
                 </Header>
-                {this.props.children}
                 <Infobox/>
+                {this.props.children}
+                <hr/>
+                <Footer/>
             </div>
         )
     }

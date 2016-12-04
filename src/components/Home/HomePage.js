@@ -9,7 +9,7 @@ export default class HomePage extends Component {
                 message = <p>You have {this.props.todayTasks} tasks assigned for today!</p>
         }
         return (
-            <div>
+            <div className="clearfix">
                 <h1>Home Page</h1>
                 {message}
             </div>

@@ -45,7 +45,7 @@ export default class LoginPage extends Component {
 
     render() {
         return (
-            <div>
+            <div className="clearfix">
                 <h1>Login Page</h1>
                 <LoginForm
                     username={this.state.username}

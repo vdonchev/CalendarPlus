@@ -7,7 +7,7 @@ import observer from '../../models/observer';
 export default class Infobox extends Component {
     constructor(props) {
         super(props);
-        this.state ={
+        this.state = {
             message: '',
             style: 'info',
             visible: false
@@ -40,11 +40,11 @@ export default class Infobox extends Component {
     }
 
     ajaxStart() {
-        this.setState({ message: 'Loading...', style: 'info', visible: true });
+        this.setState({message: 'Loading...', style: 'info', visible: true});
     }
 
     hide() {
-        this.setState({ visible: false });
+        this.setState({visible: false});
     }
 
     handleAjaxError(response) {
@@ -57,17 +57,17 @@ export default class Infobox extends Component {
     }
 
     showInfo(message) {
-        this.setState({ message: message, style: 'info', visible: true });
+        this.setState({message: message, style: 'info', visible: true});
         setTimeout(this.hide, 3000);
     }
 
     showSuccess(message) {
-        this.setState({ message: message, style: 'success', visible: true });
+        this.setState({message: message, style: 'success', visible: true});
         setTimeout(this.hide, 3000);
     }
 
     showError(errorMsg) {
-        this.setState({ message: errorMsg, style: 'error', visible: true });
+        this.setState({message: errorMsg, style: 'error', visible: true});
     }
 
     render() {
@@ -91,9 +91,7 @@ export default class Infobox extends Component {
 
         return (
             <div className={className} onClick={this.hide}>
-                <span>
-                    {this.state.message}
-                </span>
+                <span>{this.state.message}</span>
             </div>
         )
     }
