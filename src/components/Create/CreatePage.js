@@ -64,7 +64,6 @@ export default class CreatePage extends Component {
     }
 
     onLoadSuccess(categories) {
-        console.log(categories)
         categories.forEach(cat => {
             this.state.categories.push(<option key={cat._id} value={cat._id}>{cat.title}</option>);
         });
@@ -79,7 +78,7 @@ export default class CreatePage extends Component {
     render() {
         return (
             <div>
-                <h1>Create new Task</h1>
+                <h1>Create new task</h1>
                 <CreateForm
                     title={this.state.title}
                     body={this.state.body}

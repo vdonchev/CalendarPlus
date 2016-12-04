@@ -26,7 +26,9 @@ export default class Calendar extends Component {
         ];
 
         let currentDate = new Date();
-        currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + this.state.monthValue, currentDate.getDate());
+        currentDate = new Date(currentDate.getFullYear(),
+            currentDate.getMonth() + this.state.monthValue,
+            currentDate.getDate());
 
         let thisMonth = currentDate.getMonth();
         let thisYear = currentDate.getFullYear();

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import EditForm from '../Edit/EditForm';
-import {edit} from '../../models/task';
+import {edit, getTaskById} from '../../models/task';
 import {loadCategories} from '../../models/category';
 
 export default class EditPage extends Component {
@@ -8,21 +8,32 @@ export default class EditPage extends Component {
         super(props);
 
         this.state = {
-            title: this.props.params,
+            title: this.props,
             body: '',
             category: '',
             categories: [<option key='0' value=''>---Choose---</option>],
             submitDisabled: false
         };
 
+        //this should fill the fields of the state when being routed.
+        getTaskById(this.props.params.taskId, this.changeState);
         this.bindEventHandlers();
     }
 
     bindEventHandlers() {
+        this.changeState = this.changeState.bind(this);
         this.onChangeHandler = this.onChangeHandler.bind(this);
         this.onSubmitHandler = this.onSubmitHandler.bind(this);
         this.onSubmitResponse = this.onSubmitResponse.bind(this);
         this.onLoadSuccess = this.onLoadSuccess.bind(this);
+    }
+
+    changeState(data) {
+        this.setState({
+            title: data.title,
+            body: data.body,
+            category: data.category,
+        });
     }
 
     onChangeHandler(event) {
@@ -47,7 +58,7 @@ export default class EditPage extends Component {
 
         edit(
             Number(this.props.params.day),
-            '' + this.props.params.year  + this.props.params.month,
+            '' + this.props.params.year + this.props.params.month,
             this.state.title,
             this.state.body,
             this.state.category,
@@ -73,6 +84,7 @@ export default class EditPage extends Component {
 
     componentDidMount() {
         loadCategories(this.onLoadSuccess);
+
     }
 
     render() {

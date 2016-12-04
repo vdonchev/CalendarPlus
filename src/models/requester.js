@@ -18,11 +18,13 @@ function get(module, uri, auth) {
     const kinveyLoginUrl = kinveyBaseUrl + module + "/" + kinveyAppKey + "/" + uri;
     const kinveyAuthHeaders = makeAuth(auth);
 
-    return $.ajax({
+    let request = {
         method: "GET",
         url: kinveyLoginUrl,
         headers: kinveyAuthHeaders
-    });
+    }
+
+    return $.ajax(request);
 }
 
 function post(module, uri, data, auth) {
@@ -55,4 +57,17 @@ function update(module, uri, data, auth) {
     return $.ajax(request);
 }
 
-export {get, post, update};
+function remove(module, uri, auth) {
+    const kinveyLoginUrl = kinveyBaseUrl + module + "/" + kinveyAppKey + "/" + uri;
+    const kinveyAuthHeaders = makeAuth(auth);
+
+    let request = {
+        method: "DELETE",
+        url: kinveyLoginUrl,
+        headers: kinveyAuthHeaders
+    };
+
+    return $.ajax(request);
+}
+
+export {get, post, update, remove};

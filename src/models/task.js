@@ -1,4 +1,4 @@
-import {get, post, update} from './requester';
+import {get, post, update, remove} from './requester';
 import observer from '../models/observer';
 
 function loadAllTasks(callback) {
@@ -6,10 +6,11 @@ function loadAllTasks(callback) {
         .then(callback);
 }
 
-function loadDayTasks(dateId, day, callback) {
-    let jsonUri = `tasks?query={"dateId":"${dateId}", "day":${day}}`;
-    get('appdata', jsonUri, 'kinvey')
-        .then(callback);
+function loadDayTasks(day, dateId, callback) {
+    let jsonUri = `tasks?query={"dateId":"${dateId}","day":"${day}"}`;
+    get('appdata', jsonUri, 'kinvey').then((response) => {
+        callback(response);
+    })
 }
 
 function loadMonthTasks(dateId, callback) {
@@ -42,10 +43,20 @@ function edit(dateId, title, body, callback) {
         .then(callback(true));
 }
 
+function removeTask(dateId) {
+    remove('appdata', 'tasks/' + dateId, 'kinvey')
+}
+
+function getTaskById(taskId) {
+    get('appdata', `tasks?query={"_id": "${taskId}"}`, 'kinvey')
+}
+
 export {
     loadAllTasks,
     loadDayTasks,
     loadMonthTasks,
     edit,
-    create
+    create,
+    removeTask,
+    getTaskById
 };
