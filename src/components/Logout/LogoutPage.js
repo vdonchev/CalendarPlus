@@ -2,10 +2,6 @@ import React, {Component} from 'react';
 import {logout} from '../../models/user';
 
 export default class LogoutPage extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     componentDidMount() {
         this.logout();
     }

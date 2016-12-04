@@ -44,31 +44,3 @@ span.task-title {
     width: 1em;
     height: 1em;
 }
-
-span.Meeting {
-    background: #7FFFD4;
-}
-
-span.Sport {
-    background: #8A2BE2;
-}
-
-span.School {
-    background: #B8860B;
-}
-
-span.Other {
-    background: #FFF8DC;
-}
-
-span.Work {
-    background: #8B0000;
-}
-
-span.Business {
-    background: #228B22;
-}
-
-span.Personal {
-    background: #778899;
-}

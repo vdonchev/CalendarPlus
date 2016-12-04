@@ -32,10 +32,14 @@ export default class Tasks extends Component {
 
             let elements = [];
             for (let entry of tasks) {
+                let catStyle = {
+                    background: '#' + cats[entry.categoryId].color
+                };
+
                 let element = (
                     <li key={entry._id} className="list-group-item">
                         <p className="task-title h4">
-                            <span className={cats[entry.categoryId].title}> </span>
+                            <span style={catStyle}> </span>
                             {entry.title}
                         </p>
                         <div>
