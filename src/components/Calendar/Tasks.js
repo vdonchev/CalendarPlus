@@ -1,16 +1,45 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router';
 import './Tasks.css';
+import {Link} from 'react-router';
 
 export default class Tasks extends Component {
     render() {
-        return(
-            <Link to={"/create/" + this.props.taskId} className="tasks-box">
-                <span className="spanner">Task</span>
-                <span className="title">{this.props.title}</span>
-                <span className="spanner">Description</span>
-                <p>{this.props.body || 'No description'}</p>
-            </Link>
+        return (
+            <div className="row">
+                <div className="col-md-3">
+                    <span
+                        className="h4">Selected date: {this.props.params.day}.{Number(this.props.params.month) + 1}.{this.props.params.year}</span>
+                </div>
+                <div className="col-md-3">
+                    <Link className="btn btn-success"
+                          to={'/create/' + this.props.params.year + '/' + this.props.params.month + '/' + this.props.params.day }>
+                        Add new task
+                    </Link>
+                </div>
+                <div className="col-md-6">
+                    <div className="h3">Tasks:</div>
+                    <hr/>
+                    <ul className="list-group">
+                        <li className="list-group-item">
+                            <span className="task-title h3">Cras justo odio</span>
+                            <div>
+                                <hr/>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aliquid aut dolor ex
+                                laborum
+                                placeat quam voluptates! Aliquam aliquid dicta dolorem enim expedita hic illo maiores
+                                nobis
+                                numquam voluptas? Molestiae?
+
+                                <div className="task-category h6">Category: Personal</div>
+                                <div className="task-administration text-right h4">
+                                    <a href="#" className="edit-task text-warning">Edit</a>&nbsp;
+                                    <a href="#" className="delete-task text-danger">Delete</a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         )
     }
 }

@@ -7,7 +7,7 @@ function loadAllTasks(callback) {
 }
 
 function loadDayTasks(dateId, day, onTeamSuccess) {
-    let jsonUri = `tasks?query={"day":${day}, "dateId":${dateId}`;
+    let jsonUri = `tasks?query={"dateId":"${dateId}", "day":${day}}`;
     get('appdata', jsonUri , 'kinvey')
         .then(onTeamSuccess);
 }
