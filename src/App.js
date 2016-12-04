@@ -32,13 +32,13 @@ class App extends Component {
             navbar = (
                 <Navbar>
                     <li className="nav-item">
-                        <Link to="/" activeClassName="active" onlyActiveOnIndex={true}>Home</Link>
+                        <Link to="/" activeClassName="btn btn-primary active" onlyActiveOnIndex={true}>Home</Link>
                     </li>
                     <li className="nav-item">
-                        <Link to="/login" activeClassName="btn btn-default active">Login</Link>
+                        <Link to="/login" activeClassName="btn btn-primary active">Login</Link>
                     </li>
                     <li className="nav-item">
-                        <Link to="/register" activeClassName="btn btn-default active">Register</Link>
+                        <Link to="/register" activeClassName="btn btn-primary active">Register</Link>
                     </li>
                 </Navbar>
             );
@@ -46,14 +46,14 @@ class App extends Component {
             navbar = (
                 <Navbar>
                     <li className="nav-item">
-                        <Link to="/" activeClassName="active"
+                        <Link to="/" activeClassName="btn btn-primary active"
                               onlyActiveOnIndex={true}>Home</Link>
                     </li>
                     <li className="nav-item">
-                        <Link to="/calendar" activeClassName="active">Calendar</Link>
+                        <Link to="/calendar" activeClassName="btn btn-primary active">Calendar</Link>
                     </li>
                     <li className="nav-item">
-                        <Link to="/logout" activeClassName="active">Logout</Link>
+                        <Link to="/logout" activeClassName="btn btn-primary active">Logout</Link>
                     </li>
                 </Navbar>
             );

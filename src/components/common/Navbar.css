@@ -1,0 +1,6 @@
+.disabled-text, .disabled-text:hover, .disabled-text:focus {
+    color: black !important;
+    cursor: default !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}

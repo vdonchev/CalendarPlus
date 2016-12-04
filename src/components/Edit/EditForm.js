@@ -39,7 +39,7 @@ export default class EditForm extends Component {
                     </select>
 
                 </div>
-                <input className="btn btn-default" type="submit" value="Submit" disabled={this.props.submitDisabled}/>
+                <input className="btn btn-success btn-lg" type="submit" value="Add new task" disabled={this.props.submitDisabled}/>
             </form>
         );
     }

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import Greeting from '../common/Greeting';
+import Logo from './logo.png';
+import './Header.css';
 
 export default class Header extends Component {
     render() {
@@ -8,8 +9,7 @@ export default class Header extends Component {
                 <nav>
                     {this.props.children}
                 </nav>
-                <h3 className="text-muted">Calendar+</h3>
-                <div><Greeting user={this.props.user}/></div>
+                <img src={Logo} className="logo" alt="Calendar"/>
                 <hr/>
             </div>
         );

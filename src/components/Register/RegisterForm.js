@@ -4,7 +4,7 @@ export default class RegisterForm extends Component {
     render() {
         return (
             <form onSubmit={this.props.onSubmitHandler}>
-                <h5><p>Usernames and passwords must be at least 3 characters long!</p></h5>
+                <p className="h5 text-danger">Usernames and passwords must be at least 3 characters long!</p>
                 <div className="form-group">
                     <label>Username:</label>
                     <input
@@ -38,7 +38,7 @@ export default class RegisterForm extends Component {
                         onChange={this.props.onChangeHandler}
                     />
                 </div>
-                <input className="btn btn-default" type="submit" value="Register" disabled={this.props.submitDisabled}/>
+                <input className="btn btn-block btn-primary" type="submit" value="Register" disabled={this.props.submitDisabled}/>
             </form>
         );
     }

@@ -40,12 +40,12 @@ export default class RegisterPage extends Component {
             return;
         }
 
-        if(this.state.username.length <= 3){
+        if (this.state.username.length <= 3) {
             observer.showError("Usernames have to be more than 3 characters");
             return;
         }
 
-        if(this.state.password.length <= 3){
+        if (this.state.password.length <= 3) {
             observer.showError("Passwords have to be more than 3 characters");
             return;
         }
@@ -69,16 +69,19 @@ export default class RegisterPage extends Component {
             return null;
 
         return (
-            <div>
-                <h1>Register Page</h1>
-                <RegisterForm
-                    username={this.state.username}
-                    password={this.state.password}
-                    repeat={this.state.repeat}
-                    submitDisabled={this.state.submitDisabled}
-                    onChangeHandler={this.onChangeHandler}
-                    onSubmitHandler={this.onSubmitHandler}
-                />
+            <div className="clearfix">
+                <div className="col-md-offset-4 col-md-4">
+                    <h1>Register</h1>
+                    <hr/>
+                    <RegisterForm
+                        username={this.state.username}
+                        password={this.state.password}
+                        repeat={this.state.repeat}
+                        submitDisabled={this.state.submitDisabled}
+                        onChangeHandler={this.onChangeHandler}
+                        onSubmitHandler={this.onSubmitHandler}
+                    />
+                </div>
             </div>
         )
     }
