@@ -3,42 +3,70 @@ import './Tasks.css';
 import {Link} from 'react-router';
 import TaskControls from './TaskControls'
 import {loadDayTasks} from "../../models/task";
+import {removeTask} from "../../models/task";
+import {loadCategories} from '../../models/category';
 
 export default class Tasks extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedDayTasks: null
+            selectedDayTasks: []
         };
 
         this.createRender = this.createRender.bind(this);
+        this.onDelete = this.onDelete.bind(this);
+    }
+
+    componentDidMount() {
         let day = Number(this.props.params.day);
         let dateId = '' + this.props.params.year + this.props.params.month;
         loadDayTasks(day, dateId, this.createRender);
     }
 
     createRender(tasks) {
-        let elements = [];
-        for (let entry of tasks) {
-            let element = <li key={entry._id} className="list-group-item">
-                <span className="task-title h3">{entry.title}</span>
-                <div>
-                    <hr/>
-                    {entry.body}
-                    <div className="task-category h6">Category: Personal</div>
-                    <div className="task-administration text-right h4">
-                        <TaskControls taskId={entry._id}/>
-                    </div>
-                </div>
-                <br/>
-            </li>
+        loadCategories((categories) => {
+            let cats = {};
+            for (let category of categories) {
+                cats[category._id] = category;
+            }
 
-            elements.push(element);
-        }
+            let elements = [];
+            for (let entry of tasks) {
+                let element = (
+                    <li key={entry._id} className="list-group-item">
+                        <p className="task-title h4">
+                            <span className={cats[entry.categoryId].title}> </span>
+                            {entry.title}
+                        </p>
+                        <div>
+                            <hr/>
+                            {entry.body}
+                            <div className="task-category h4">
+                                <span className="label label-default">Category: {cats[entry.categoryId].title}</span>
+                            </div>
+                            <div className="task-administration text-right h4">
+                                <TaskControls taskId={entry._id} onDelete={this.onDelete}/>
+                            </div>
+                        </div>
+                        <br/>
+                    </li>
+                );
 
-        this.setState({
-            selectedDayTasks: elements
+                elements.push(element);
+            }
+
+            this.setState({
+                selectedDayTasks: elements
+            });
         });
+    }
+
+    onDelete(id) {
+        removeTask(id);
+        console.log(this.state.selectedDayTasks);
+        this.setState({
+            selectedDayTasks: this.state.selectedDayTasks.filter(e => e.key !== id)
+        })
     }
 
     render() {
@@ -49,18 +77,17 @@ export default class Tasks extends Component {
                         className="h3">Selected
                         date: {this.props.params.day}.{Number(this.props.params.month) + 1}.{this.props.params.year}</div>
                     <hr/>
-                    <Link className="btn btn-success btn-lg"
+                    <Link className="btn btn-success btn-lg btn-block"
                           to={'/create/' + this.props.params.year + '/' + this.props.params.month + '/' + this.props.params.day }>
                         Add new task
                     </Link>
-                    <div className="col-md-8">
-                        <div className="h3">Tasks:</div>
-                        <hr/>
-                        <ul className="list-group">
-                            {this.state.selectedDayTasks}
-                        </ul>
-                    </div>
-                    ;
+                </div>
+                <div className="col-md-8">
+                    <div className="h3">Tasks:</div>
+                    <hr/>
+                    <ul className="list-group">
+                        {this.state.selectedDayTasks}
+                    </ul>
                 </div>
             </div>
         )

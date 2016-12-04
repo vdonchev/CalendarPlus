@@ -47,7 +47,7 @@ export default class CreatePage extends Component {
 
         create(
             Number(this.props.params.day),
-            '' + this.props.params.year  + this.props.params.month,
+            '' + this.props.params.year + this.props.params.month,
             this.state.title,
             this.state.body,
             this.state.category,
@@ -57,7 +57,7 @@ export default class CreatePage extends Component {
 
     onSubmitResponse(response) {
         if (response === true) {
-            this.context.router.push('/calendar');
+            this.context.router.push('/calendar/' + this.props.params.year + '/' + this.props.params.month + '/' + this.props.params.day);
         } else {
             this.setState({submitDisabled: true});
         }
