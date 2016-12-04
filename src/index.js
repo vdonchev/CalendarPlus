@@ -20,7 +20,7 @@ ReactDOM.render(
             <IndexRoute component={HomePage}/>
             <Route path="Calendar">
                 <IndexRoute component={CalendarPage}/>
-                <Route path=":taskId" component={Details}/>
+                <Route path=":year/:month/:day" component={Details}/>
             </Route>
             <Route path="about" component={About}/>
             <Route path="login" component={Login}/>

@@ -1,13 +1,15 @@
 import React, {Component} from 'react';
-import {loadAllTasks} from '../../models/task';
-import {Link} from 'react-router';
+import {loadMonthTasks} from '../../models/task';
 import Calendar from './Calendar'
 
 export default class CalendarPage extends Component {
     constructor(props) {
         super(props);
+
+        let date = new Date();
         this.state = {
-            tasks: []
+            tasks: '0'.repeat(32).split('').map(Number),
+            dateId: '' + date.getFullYear() + date.getMonth()
         };
 
         this.bindEventHandlers();
@@ -15,30 +17,50 @@ export default class CalendarPage extends Component {
 
     bindEventHandlers() {
         this.onLoadSuccess = this.onLoadSuccess.bind(this);
+        this.updateTasks = this.updateTasks.bind(this);
     }
 
     onLoadSuccess(response) {
-        // Display tasks
-        this.setState({tasks: response})
+        for (let task of response) {
+            this.state.tasks[task.day]++;
+        }
+
+        this.forceUpdate(); // update number of tasks when ready
     }
 
     //this is a hook which triggers on component creation
     componentDidMount() {
-        // Request all tasks from the server
-        loadAllTasks(this.onLoadSuccess);
+        loadMonthTasks(this.state.dateId, this.onLoadSuccess);
+    }
+
+    updateTasks(day) {
+        let year = Number(this.state.dateId.substr(0, 4));
+        let month = Number(this.state.dateId.substr(4));
+        month += day;
+        if (month < 0) {
+            month = 11;
+            year--;
+        }
+
+        if (month > 11) {
+            month = 0;
+            year++;
+        }
+
+        let newDateId = '' + year + month;
+        this.setState({
+            tasks: '0'.repeat(32).split('').map(Number),
+            dateId: newDateId
+        });
+
+        loadMonthTasks(newDateId, this.onLoadSuccess);
     }
 
     render() {
-        let createLink = null;
-        if (sessionStorage.getItem('authToken')) {
-            createLink = <Link to="/create" className="btn btn-default">Create a task</Link>
-        }
         return (
             <div>
-                <h1>Calendar Page</h1>
-                {createLink}
                 <div>
-                    <Calendar/>
+                    <Calendar tasks={this.state.tasks} onMonthChange={this.updateTasks}/>
                 </div>
             </div>
         );

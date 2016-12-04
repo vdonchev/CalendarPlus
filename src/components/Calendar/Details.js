@@ -77,6 +77,7 @@ export default class Details extends Component {
 
         return (
             <div className="details-box">
+                {this.props.params.year}
                 <span className="titlebar">{title}</span>
                 <span className="spanner">Tasks</span>
                 {this.state.tasks}

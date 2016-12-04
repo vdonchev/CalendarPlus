@@ -13,7 +13,7 @@ function loadDayTasks(dateId, day, onTeamSuccess) {
 }
 
 function loadMonthTasks(dateId, onUsersSuccess) {
-    get('user', `?query={"dateId": "${dateId}"}`, 'kinvey')
+    get('appdata', `tasks?query={"dateId": "${dateId}"}`, 'kinvey')
         .then(onUsersSuccess);
 }
 

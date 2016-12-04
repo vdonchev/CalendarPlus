@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import './Calendar.css';
+import {Link} from 'react-router';
 
 export default class Calendar extends Component {
     constructor(props) {
@@ -15,16 +16,11 @@ export default class Calendar extends Component {
             selectedDay: now.getDate(),
             selectedMonth: now.getMonth(),
             selectedYear: now.getFullYear(),
-            dateId: now.getFullYear() + '' + now.getMonth()
+            dateId: '' + now.getFullYear() + now.getMonth()
         };
     }
 
     render() {
-        return this.renderCalendar();
-    }
-
-    renderCalendar() {
-        console.log(this.props.tasks);
         let monthNames = ["January", "February", "March", "April", "May", "June",
             "July", "August", "September", "October", "November", "December"
         ];
@@ -59,12 +55,29 @@ export default class Calendar extends Component {
                                 <td className="today"
                                     onClick={this.setSelectedDate.bind(this, currentDay, thisMonth, thisYear)}
                                     key={colKey++}>
-                                    <div className="current">TODAY</div>
-                                    {currentDay++}
+                                    <Link to={'/calendar/' + thisYear + '/' + thisMonth + '/' + currentDay }>
+                                        <div className="current">TODAY</div>
+                                        <div
+                                            className={this.props.tasks[currentDay] >= 1 ? "task-count" : "task-hidden"}>
+                                            {this.props.tasks[currentDay]} Tasks
+                                        </div>
+                                        {currentDay++}
+                                    </Link>
                                 </td>);
                         } else {
-                            cols.push(<td onClick={this.setSelectedDate.bind(this, currentDay, thisMonth, thisYear)}
-                                          key={colKey++}>{currentDay++}</td>)
+                            cols.push(
+                                <td
+                                    onClick={this.setSelectedDate.bind(this, currentDay, thisMonth, thisYear)}
+                                    key={colKey++}>
+                                    <Link to={'/calendar/' + thisYear + '/' + thisMonth + '/' + currentDay }>
+                                        {currentDay}
+                                        <div
+                                            className={this.props.tasks[currentDay] >= 1 ? "task-count" : "task-hidden"}>
+                                            {this.props.tasks[currentDay++]} Tasks
+                                        </div>
+                                    </Link>
+                                </td>
+                            )
                         }
                     } else {
                         cols.push(<td className="inactive" key={colKey++}/>)
@@ -73,15 +86,30 @@ export default class Calendar extends Component {
                     if (currentDay <= end) {
                         if (this.isToday(currentDay, thisMonth, thisYear)) {
                             cols.push(
-                                <td className="today"
+                                <td
+                                    className="today"
                                     onClick={this.setSelectedDate.bind(this, currentDay, thisMonth, thisYear)}
                                     key={colKey++}>
-                                    <div className="current">TODAY</div>
-                                    {currentDay++}
+                                    <Link to={'/calendar/' + thisYear + '/' + thisMonth + '/' + currentDay }>
+                                        <div className="current">TODAY</div>
+                                        <div
+                                            className={this.props.tasks[currentDay] >= 1 ? "task-count" : "task-hidden"}>
+                                            {this.props.tasks[currentDay]} Tasks
+                                        </div>
+                                        {currentDay++}
+                                    </Link>
                                 </td>);
                         } else {
-                            cols.push(<td onClick={this.setSelectedDate.bind(this, currentDay, thisMonth, thisYear)}
-                                          key={colKey++}>{currentDay++}</td>)
+                            cols.push(<td
+                                onClick={this.setSelectedDate.bind(this, currentDay, thisMonth, thisYear)}
+                                key={colKey++}>
+                                <Link to={'/calendar/' + thisYear + '/' + thisMonth + '/' + currentDay }>
+                                    {currentDay}
+                                    <div className={this.props.tasks[currentDay] >= 1 ? "task-count" : "task-hidden"}>
+                                        {this.props.tasks[currentDay++]} Tasks
+                                    </div>
+                                </Link>
+                            </td>)
                         }
                     } else {
                         cols.push(<td className="inactive" key={colKey++}/>)
@@ -129,10 +157,12 @@ export default class Calendar extends Component {
     }
 
     decreaseMonth() {
+        this.props.onMonthChange(-1);
         this.setState({monthValue: this.state.monthValue - 1});
     }
 
     increaseMonth() {
+        this.props.onMonthChange(1);
         this.setState({monthValue: this.state.monthValue + 1});
     }
 

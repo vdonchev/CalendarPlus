@@ -35,6 +35,11 @@ table td {
     pointer-events: none;
 }
 
+.task-hidden {
+    display: none;
+
+}
+
 td.today div.current {
     position: absolute;
     left: 0;
@@ -58,6 +63,10 @@ td.today {
 
 td.selected {
     border: 1px solid rebeccapurple;
+}
+
+td a {
+   color: black;
 }
 
 #prev-month, #next-month {
