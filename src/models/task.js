@@ -1,20 +1,35 @@
-// eslint-disable-next-line
 import {get, post, update} from './requester';
+import observer from '../models/observer';
 
 function loadAllTasks(callback) {
     get('appdata', 'tasks', 'kinvey')
         .then(callback);
 }
 
-function loadDayTasks(dateId, day, onTeamSuccess) {
+function loadDayTasks(dateId, day, callback) {
     let jsonUri = `tasks?query={"dateId":"${dateId}", "day":${day}}`;
-    get('appdata', jsonUri , 'kinvey')
-        .then(onTeamSuccess);
+    get('appdata', jsonUri, 'kinvey')
+        .then(callback);
 }
 
-function loadMonthTasks(dateId, onUsersSuccess) {
+function loadMonthTasks(dateId, callback) {
     get('appdata', `tasks?query={"dateId": "${dateId}"}`, 'kinvey')
-        .then(onUsersSuccess);
+        .then(callback);
+}
+
+function create(day, dateId, title, body, callback) {
+    let taskData = {
+        day: day,
+        dateId: dateId,
+        title: title,
+        body: body
+    };
+
+    post('appdata', 'tasks', taskData, 'kinvey')
+        .then(() => {
+            observer.showSuccess("Task added in successfully!");
+            callback(true);
+        });
 }
 
 function edit(dateId, title, body, callback) {
@@ -26,22 +41,10 @@ function edit(dateId, title, body, callback) {
         .then(callback(true));
 }
 
-function create(title, body, callback) {
-    let taskData = {
-        title: title,
-        body: body
-    };
-    post('appdata', 'tasks', taskData, 'kinvey')
-        .then((response) => {
-            //task created successfully
-        });
-}
-
-function getTodayTasks(dateId, day, callback){
-
-    let jsonUri = `tasks?query={"day":${day}, "dateId":${dateId}`;
-    get('appdata', jsonUri, 'kinvey')
-        .then(callback);
-}
-
-export {getTodayTasks, loadAllTasks, loadDayTasks, loadMonthTasks, edit, create};
+export {
+    loadAllTasks,
+    loadDayTasks,
+    loadMonthTasks,
+    edit,
+    create
+};

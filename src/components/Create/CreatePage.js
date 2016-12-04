@@ -5,41 +5,51 @@ import {create} from '../../models/task';
 export default class CreatePage extends Component {
     constructor(props) {
         super(props);
-        this.state = {title: '', body: '', submitDisabled: false};
+
+        this.state = {
+            title: '',
+            body: '',
+            submitDisabled: false
+        };
+
         this.bindEventHandlers();
     }
 
     bindEventHandlers() {
-        // Make sure event handlers have the correct context
         this.onChangeHandler = this.onChangeHandler.bind(this);
         this.onSubmitHandler = this.onSubmitHandler.bind(this);
         this.onSubmitResponse = this.onSubmitResponse.bind(this);
     }
 
     onChangeHandler(event) {
-        event.preventDefault();
-        let newState = {};
-        newState[event.target.title] = event.target.value;
-
-        //TO DO: stop users from accessing components directly and perform validation
-        if(sessionStorage.getItem('authToken')){
-            this.setState(newState);
+        switch (event.target.name) {
+            case 'title':
+                this.setState({title: event.target.value});
+                break;
+            case 'body':
+                this.setState({body: event.target.value});
+                break;
+            default:
+                break;
         }
-
     }
 
     onSubmitHandler(event) {
         event.preventDefault();
         this.setState({submitDisabled: true});
-        create(this.state.title, this.state.body, this.onSubmitResponse);
+
+        create(
+            Number(this.props.params.day),
+            '' + this.props.params.year  + this.props.params.month,
+            this.state.title,
+            this.state.body,
+            this.onSubmitResponse
+        );
     }
 
     onSubmitResponse(response) {
         if (response === true) {
-            // Navigate away from login page
-
-            //TO DO , task id is the response._id here when created
-            this.context.router.push('/');
+            this.context.router.push('/calendar');
         } else {
             this.setState({submitDisabled: true});
         }
@@ -48,7 +58,7 @@ export default class CreatePage extends Component {
     render() {
         return (
             <div>
-                <h1>Create Task</h1>
+                <h1>Create new Task</h1>
                 <CreateForm
                     title={this.state.title}
                     body={this.state.body}

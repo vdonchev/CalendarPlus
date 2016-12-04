@@ -6,17 +6,16 @@ export default class Tasks extends Component {
     render() {
         return (
             <div className="row">
-                <div className="col-md-3">
-                    <span
-                        className="h4">Selected date: {this.props.params.day}.{Number(this.props.params.month) + 1}.{this.props.params.year}</span>
-                </div>
-                <div className="col-md-3">
-                    <Link className="btn btn-success"
+                <div className="col-md-4">
+                    <div
+                        className="h3">Selected date: {this.props.params.day}.{Number(this.props.params.month) + 1}.{this.props.params.year}</div>
+                    <hr/>
+                    <Link className="btn btn-success btn-lg"
                           to={'/create/' + this.props.params.year + '/' + this.props.params.month + '/' + this.props.params.day }>
                         Add new task
                     </Link>
                 </div>
-                <div className="col-md-6">
+                <div className="col-md-8">
                     <div className="h3">Tasks:</div>
                     <hr/>
                     <ul className="list-group">

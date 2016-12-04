@@ -6,7 +6,6 @@ import '../node_modules/bootstrap/dist/css/bootstrap.css';
 import {IndexRoute, Router, Route, browserHistory} from 'react-router';
 import HomePage from './components/Home/HomePage';
 import CalendarPage from './components/Calendar/CalendarPage';
-import About from './components/About/AboutPage';
 import Login from './components/Login/LoginPage';
 import Register from './components/Register/RegisterPage';
 import Logout from './components/Logout/LogoutPage';
@@ -22,7 +21,6 @@ ReactDOM.render(
                 <IndexRoute component={CalendarPage}/>
                 <Route path=":year/:month/:day" component={Tasks}/>
             </Route>
-            <Route path="about" component={About}/>
             <Route path="login" component={Login}/>
             <Route path="register" component={Register}/>
             <Route path="logout" component={Logout}/>

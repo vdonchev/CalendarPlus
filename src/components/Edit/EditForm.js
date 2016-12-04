@@ -10,7 +10,7 @@ export default class EditForm extends Component {
                     <input
                         className="form-control"
                         type="text"
-                        name="Title"
+                        name="title"
                         value={this.props.title}
                         disabled={this.props.submitDisabled}
                         onChange={this.props.onChangeHandler}
@@ -20,7 +20,7 @@ export default class EditForm extends Component {
                     <label>Body:</label>
                     <textarea
                         className="form-control"
-                        name="Body"
+                        name="body"
                         value={this.props.body}
                         disabled={this.props.submitDisabled}
                         onChange={this.props.onChangeHandler}

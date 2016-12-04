@@ -1,7 +1,6 @@
 import * as requester from './requester';
 import observer from './observer';
 
-
 function saveSession(userInfo) {
     let userAuth = userInfo._kmd.authtoken;
     sessionStorage.setItem('authToken', userAuth);
@@ -14,7 +13,6 @@ function saveSession(userInfo) {
     observer.onSessionUpdate();
 }
 
-// user/login
 function login(username, password, callback) {
     let userData = {
         username,
@@ -35,7 +33,6 @@ function login(username, password, callback) {
     }
 }
 
-// user/register
 function register(username, password, callback) {
     let userData = {
         username,
@@ -56,7 +53,6 @@ function register(username, password, callback) {
     }
 }
 
-// user/logout
 function logout(callback) {
     requester.post('user', '_logout', null, 'kinvey')
         .then(logoutSuccess)
@@ -74,17 +70,4 @@ function logout(callback) {
     }
 }
 
-
-function deleteTask(callback) {
-    let userData = {
-       //fill in data by which to delete the task
-    };
-    requester.update('tasks', sessionStorage.getItem('userId'), userData, 'kinvey')
-        .then((response) => {
-            saveSession(response);
-            observer.onSessionUpdate();
-            callback(true);
-        });
-}
-
-export {deleteTask, login, register, logout};
+export {login, register, logout};
