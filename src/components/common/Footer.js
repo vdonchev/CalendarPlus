@@ -6,7 +6,7 @@ export default class Footer extends Component {
             <footer className="footer text-right">
                 <p>Teamwork project - JS Apps 2016 |
                     Authors: [butanfire (Vladimir Valchev), djc_bg2016 (Videlin Donchev)]</p>
-                <p>Power by: NodeJS, SystemJS, ReactJS, jQuery, Bootstrap 4</p>
+                <p>Power by: NodeJS, ReactJS, jQuery, Bootstrap 3</p>
             </footer>
         );
     }
