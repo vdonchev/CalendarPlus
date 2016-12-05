@@ -9,6 +9,7 @@ function loadAllTasks(callback) {
 function loadDayTasks(day, dateId, callback) {
     let jsonUri = `tasks?query={"dateId":"${dateId}","day":"${day}"}`;
     get('appdata', jsonUri, 'kinvey').then((response) => {
+        console.log(response);
         callback(response);
     })
 }
@@ -47,6 +48,22 @@ function getTaskById(taskId, callback) {
     get('appdata', `tasks?query={"_id": "${taskId}"}`, 'kinvey').then(callback)
 }
 
+function loadTodayTasks(){
+    let now = new Date();
+    let day = now.getDate();
+    let  dateId = '' + now.getFullYear() + now.getMonth();
+
+    let jsonUri = `tasks?query={"dateId":"${dateId}","day":"${day}"}`;
+    let temp = null;
+
+    //the response
+    get('appdata', jsonUri, 'kinvey').then((response) => {
+        temp = response;
+    });
+
+    return temp;
+}
+
 export {
     loadAllTasks,
     loadDayTasks,
@@ -54,5 +71,6 @@ export {
     edit,
     create,
     removeTask,
-    getTaskById
+    getTaskById,
+    loadTodayTasks
 };

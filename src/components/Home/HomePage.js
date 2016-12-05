@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router';
+import {loadTodayTasks} from "../../models/task";
 
 export default class HomePage extends Component {
     render() {
@@ -15,11 +16,14 @@ export default class HomePage extends Component {
             </div>
         );
 
+        //fetching the data
+        let tasks = loadTodayTasks();
+
         if (sessionStorage.getItem('username')) {
             homeScreen = (
                 <div className="jumbotron">
                     <p>Your tasks for today:</p>
-                    <div>// TODO</div>
+                    <div>{tasks}</div>
                 </div>
             )
         }

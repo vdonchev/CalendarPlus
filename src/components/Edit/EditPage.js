@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import EditForm from '../Edit/EditForm';
 import {edit, getTaskById} from '../../models/task';
 import {loadCategories} from '../../models/category';
+import {validateLoggedInUser, validateString, validateCategory} from "../common/validator";
 
 export default class EditPage extends Component {
     constructor(props) {
@@ -17,8 +18,6 @@ export default class EditPage extends Component {
 
         //this should fill the fields of the state when being routed.
         this.bindEventHandlers();
-
-        getTaskById(this.props.params.taskId, this.changeState);
     }
 
     bindEventHandlers() {
@@ -41,11 +40,9 @@ export default class EditPage extends Component {
             dateId: entry.dateId
         });
 
-        console.log(this.state.categoryId)
     }
 
     onChangeHandler(event) {
-        console.log(event.target.name);
         switch (event.target.name) {
             case 'title':
                 this.setState({title: event.target.value});
@@ -65,6 +62,23 @@ export default class EditPage extends Component {
         event.preventDefault();
         this.setState({submitDisabled: true});
 
+        validateLoggedInUser();
+
+        if (validateString(this.state.title)) {
+            this.setState({submitDisabled: false});
+            return;
+
+        }
+        if (validateString(this.state.body)) {
+            this.setState({submitDisabled: false});
+            return;
+
+        }
+        if (validateCategory(this.state.categoryId)) {
+            this.setState({submitDisabled: false});
+            return;
+        }
+
         //load the data for the edit
         let data = {
             title: this.state.title,
@@ -73,7 +87,7 @@ export default class EditPage extends Component {
             day: this.state.day,
             dateId: this.state.dateId
         };
-        console.log(this.state.categoryId)
+
         edit(this.state.taskId, data, this.onSubmitResponse);
     }
 
@@ -99,6 +113,7 @@ export default class EditPage extends Component {
 
     componentDidMount() {
         loadCategories(this.onLoadSuccess);
+        getTaskById(this.props.params.taskId, this.changeState);
     }
 
     render() {

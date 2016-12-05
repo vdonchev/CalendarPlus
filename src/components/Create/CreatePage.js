@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import CreateForm from '../Edit/EditForm';
 import {create} from '../../models/task';
 import {loadCategories} from '../../models/category';
-import observer from "../common/Infobox";
+import {validateLoggedInUser, validateString, validateCategory} from '../common/validator'
 
 export default class CreatePage extends Component {
     constructor(props) {
@@ -46,11 +46,23 @@ export default class CreatePage extends Component {
         event.preventDefault();
         this.setState({submitDisabled: true});
 
-        // TODO validate data before creating
-        if(this.state.categoryId === undefined){
-            observer.showError("Category is not selected");
+        validateLoggedInUser();
+
+        if (validateString(this.state.title)) {
+            this.setState({submitDisabled: false});
+            return;
+
+        }
+        if (validateString(this.state.body)) {
+            this.setState({submitDisabled: false});
+            return;
+
+        }
+        if (validateCategory(this.state.categoryId)) {
+            this.setState({submitDisabled: false});
             return;
         }
+
 
         create(
             Number(this.props.params.day),
@@ -66,7 +78,7 @@ export default class CreatePage extends Component {
         if (response === true) {
             this.context.router.push('/calendar/' + this.props.params.year + '/' + this.props.params.month + '/' + this.props.params.day);
         } else {
-            this.setState({submitDisabled: true});
+            this.setState({submitDisabled: false});
         }
     }
 

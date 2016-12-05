@@ -67,7 +67,6 @@ export default class Tasks extends Component {
 
     onDelete(id) {
         removeTask(id);
-        console.log(this.state.selectedDayTasks);
         this.setState({
             selectedDayTasks: this.state.selectedDayTasks.filter(e => e.key !== id)
         })
