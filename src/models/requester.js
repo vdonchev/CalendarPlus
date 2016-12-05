@@ -47,6 +47,8 @@ function update(module, uri, data, auth) {
     const kinveyLoginUrl = kinveyBaseUrl + module + "/" + kinveyAppKey + "/" + uri;
     const kinveyAuthHeaders = makeAuth(auth);
 
+    console.log(data);
+
     let request = {
         method: "PUT",
         url: kinveyLoginUrl,

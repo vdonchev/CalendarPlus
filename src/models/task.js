@@ -34,21 +34,17 @@ function create(day, dateId, title, body, categoryId, callback) {
         });
 }
 
-function edit(dateId, title, body, callback) {
-    let taskData = {
-        title: title,
-        body: body
-    };
-    update('appdata', 'tasks/' + dateId, taskData, 'kinvey')
-        .then(callback(true));
+function edit(taskId, taskData, callback) {
+    update('appdata', 'tasks/' + taskId, taskData, 'kinvey')
+        .then(callback);
 }
 
 function removeTask(dateId) {
     remove('appdata', 'tasks/' + dateId, 'kinvey')
 }
 
-function getTaskById(taskId) {
-    get('appdata', `tasks?query={"_id": "${taskId}"}`, 'kinvey')
+function getTaskById(taskId, callback) {
+    get('appdata', `tasks?query={"_id": "${taskId}"}`, 'kinvey').then(callback)
 }
 
 export {

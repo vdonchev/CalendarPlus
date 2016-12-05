@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import CreateForm from '../Edit/EditForm';
 import {create} from '../../models/task';
 import {loadCategories} from '../../models/category';
+import observer from "../common/Infobox";
 
 export default class CreatePage extends Component {
     constructor(props) {
@@ -10,7 +11,7 @@ export default class CreatePage extends Component {
         this.state = {
             title: '',
             body: '',
-            category: '',
+            categoryId: '',
             categories: [<option key='0' value=''>---Choose---</option>],
             submitDisabled: false
         };
@@ -33,8 +34,8 @@ export default class CreatePage extends Component {
             case 'body':
                 this.setState({body: event.target.value});
                 break;
-            case 'category':
-                this.setState({category: event.target.value});
+            case 'categoryId':
+                this.setState({categoryId: event.target.value});
                 break;
             default:
                 break;
@@ -45,12 +46,18 @@ export default class CreatePage extends Component {
         event.preventDefault();
         this.setState({submitDisabled: true});
 
+        // TODO validate data before creating
+        if(this.state.categoryId === undefined){
+            observer.showError("Category is not selected");
+            return;
+        }
+
         create(
             Number(this.props.params.day),
             '' + this.props.params.year + this.props.params.month,
             this.state.title,
             this.state.body,
-            this.state.category,
+            this.state.categoryId,
             this.onSubmitResponse
         );
     }
@@ -82,7 +89,7 @@ export default class CreatePage extends Component {
                 <CreateForm
                     title={this.state.title}
                     body={this.state.body}
-                    category={this.state.category}
+                    categoryId={this.state.categoryId}
                     submitDisabled={this.state.submitDisabled}
                     onChangeHandler={this.onChangeHandler}
                     onSubmitHandler={this.onSubmitHandler}

@@ -10,14 +10,15 @@ export default class EditPage extends Component {
         this.state = {
             title: this.props,
             body: '',
-            category: '',
+            categoryId: '',
             categories: [<option key='0' value=''>---Choose---</option>],
             submitDisabled: false
         };
 
         //this should fill the fields of the state when being routed.
-        getTaskById(this.props.params.taskId, this.changeState);
         this.bindEventHandlers();
+
+        getTaskById(this.props.params.taskId, this.changeState);
     }
 
     bindEventHandlers() {
@@ -29,14 +30,22 @@ export default class EditPage extends Component {
     }
 
     changeState(data) {
+        let entry = data[0];
+
         this.setState({
-            title: data.title,
-            body: data.body,
-            category: data.category,
+            title: entry.title,
+            body: entry.body,
+            categoryId: entry.categoryId,
+            taskId: entry._id,
+            day: entry.day,
+            dateId: entry.dateId
         });
+
+        console.log(this.state.categoryId)
     }
 
     onChangeHandler(event) {
+        console.log(event.target.name);
         switch (event.target.name) {
             case 'title':
                 this.setState({title: event.target.value});
@@ -44,8 +53,8 @@ export default class EditPage extends Component {
             case 'body':
                 this.setState({body: event.target.value});
                 break;
-            case 'category':
-                this.setState({category: event.target.value});
+            case 'categoryId':
+                this.setState({categoryId: event.target.value});
                 break;
             default:
                 break;
@@ -56,25 +65,31 @@ export default class EditPage extends Component {
         event.preventDefault();
         this.setState({submitDisabled: true});
 
-        edit(
-            Number(this.props.params.day),
-            '' + this.props.params.year + this.props.params.month,
-            this.state.title,
-            this.state.body,
-            this.state.category,
-            this.onSubmitResponse
-        );
+        //load the data for the edit
+        let data = {
+            title: this.state.title,
+            body: this.state.body,
+            categoryId: this.state.categoryId,
+            day: this.state.day,
+            dateId: this.state.dateId
+        };
+        console.log(this.state.categoryId)
+        edit(this.state.taskId, data, this.onSubmitResponse);
     }
 
     onSubmitResponse(response) {
-        if (response === true) {
+        if (response) {
             this.context.router.push('/calendar');
         } else {
-            this.setState({submitDisabled: true});
+            this.setState({submitDisabled: false});
         }
     }
 
     onLoadSuccess(categories) {
+        this.setState({
+            categories: []
+        });
+
         categories.forEach(cat => {
             this.state.categories.push(<option key={cat._id} value={cat._id}>{cat.title}</option>);
         });
@@ -84,7 +99,6 @@ export default class EditPage extends Component {
 
     componentDidMount() {
         loadCategories(this.onLoadSuccess);
-
     }
 
     render() {
@@ -94,7 +108,7 @@ export default class EditPage extends Component {
                 <EditForm
                     title={this.state.title}
                     body={this.state.body}
-                    category={this.state.category}
+                    categoryId={this.state.categoryId}
                     submitDisabled={this.state.submitDisabled}
                     onChangeHandler={this.onChangeHandler}
                     onSubmitHandler={this.onSubmitHandler}
