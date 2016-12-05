@@ -147,10 +147,10 @@ export default class Calendar extends Component {
                     </table>
                     <nav className="paging">
                         <ul className="pager">
-                            <li className="previous"><a href="#" onClick={this.decreaseMonth.bind(this)}><span
-                            >&larr;</span> Previous</a></li>
-                            <li className="next"><a href="#" onClick={this.increaseMonth.bind(this)}>Next <span
-                            >&rarr;</span></a></li>
+                            <li className="previous"><span className="a-like" onClick={this.decreaseMonth.bind(this)}><span
+                            >&larr;</span> Previous</span></li>
+                            <li className="next"><span className="a-like" onClick={this.increaseMonth.bind(this)}>Next <span
+                            >&rarr;</span></span></li>
                         </ul>
                     </nav>
                 </div>
