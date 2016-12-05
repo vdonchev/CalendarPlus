@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import './index.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.css';
-import {IndexRoute, Router, Route, browserHistory} from 'react-router';
+import {IndexRoute, Router, Route, browserHistory, hashHistory} from 'react-router';
 import HomePage from './components/Home/HomePage';
 import CalendarPage from './components/Calendar/CalendarPage';
 import Login from './components/Login/LoginPage';
