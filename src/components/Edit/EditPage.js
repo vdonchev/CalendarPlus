@@ -112,12 +112,13 @@ export default class EditPage extends Component {
     }
 
     componentDidMount() {
+        validateLoggedInUser();
         loadCategories(this.onLoadSuccess);
         getTaskById(this.props.params.taskId, this.changeState);
     }
 
     render() {
-        return (
+        return validateLoggedInUser() || (
             <div>
                 <h1>Edit Task</h1>
                 <EditForm

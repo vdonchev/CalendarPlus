@@ -95,7 +95,7 @@ export default class CreatePage extends Component {
     }
 
     render() {
-        return (
+        return validateLoggedInUser() || (
             <div>
                 <h1>Create new task</h1>
                 <CreateForm
