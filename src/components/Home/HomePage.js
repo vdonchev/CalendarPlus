@@ -24,7 +24,7 @@ export default class HomePage extends Component {
         let link = '/calendar/' + date.getFullYear() + '/' + date.getMonth() + '/' + date.getDate();
         return (
             <Link to={link} activeClassName="btn btn-primary active">
-                <div className="h4"><a href="">Click here to see them.</a></div>
+                <div className="h4 a-like">Click here to see them.</div>
             </Link>
         );
     }
