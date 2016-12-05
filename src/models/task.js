@@ -9,7 +9,6 @@ function loadAllTasks(callback) {
 function loadDayTasks(day, dateId, callback) {
     let jsonUri = `tasks?query={"dateId":"${dateId}","day":"${day}"}`;
     get('appdata', jsonUri, 'kinvey').then((response) => {
-        console.log(response);
         callback(response);
     })
 }
