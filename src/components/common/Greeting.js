@@ -7,7 +7,7 @@ export default class Greeting extends Component {
             return null;
         } else {
             return (
-                <a className="btn disabled-text">Welcome, <strong>{username}</strong>!</a>
+                <a className="btn disabled-text">Hi, <strong>{username}</strong>!</a>
             );
         }
     }

@@ -3,6 +3,32 @@ import {Link} from 'react-router';
 import {loadTodayTasks} from "../../models/task";
 
 export default class HomePage extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            tasks: 0
+        };
+    }
+
+    componentDidMount() {
+        loadTodayTasks()
+            .then(res => {
+                this.setState({
+                    tasks: res.length || 0
+                })
+            });
+    }
+
+    buildTodaysLink() {
+        let date = new Date();
+        let link = '/calendar/' + date.getFullYear() + '/' + date.getMonth() + '/' + date.getDate();
+        return (
+            <Link to={link} activeClassName="btn btn-primary active">
+                <div className="h4"><a href="">Click here to see them.</a></div>
+            </Link>
+        );
+    }
+
     render() {
         let homeScreen = (
             <div className="jumbotron">
@@ -16,14 +42,11 @@ export default class HomePage extends Component {
             </div>
         );
 
-        //fetching the data
-        let tasks = loadTodayTasks();
-
         if (sessionStorage.getItem('username')) {
             homeScreen = (
-                <div className="jumbotron">
-                    <p>Your tasks for today:</p>
-                    <div>{tasks}</div>
+                <div className="jumbotron text-center">
+                    <p>You have <strong>{this.state.tasks}</strong> tasks scheduled for today!</p>
+                    {this.buildTodaysLink()}
                 </div>
             )
         }

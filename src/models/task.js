@@ -48,20 +48,14 @@ function getTaskById(taskId, callback) {
     get('appdata', `tasks?query={"_id": "${taskId}"}`, 'kinvey').then(callback)
 }
 
-function loadTodayTasks(){
+function loadTodayTasks() {
     let now = new Date();
     let day = now.getDate();
-    let  dateId = '' + now.getFullYear() + now.getMonth();
+    let dateId = '' + now.getFullYear() + now.getMonth();
 
     let jsonUri = `tasks?query={"dateId":"${dateId}","day":"${day}"}`;
-    let temp = null;
 
-    //the response
-    get('appdata', jsonUri, 'kinvey').then((response) => {
-        temp = response;
-    });
-
-    return temp;
+    return get('appdata', jsonUri, 'kinvey')
 }
 
 export {
