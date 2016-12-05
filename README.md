@@ -12,4 +12,4 @@ Teamwork project on **JSApps** course @ Softuni.bg
 * jQuery
 * Bootstrap 3.0
 
-**Live demo:** https://github.com/vdonchev/CalendarPlus
+**Live demo:** https://vdonchev.github.io/CalendarPlus/
