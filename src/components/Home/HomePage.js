@@ -10,7 +10,7 @@ export default class HomePage extends Component {
         };
     }
 
-    componentDidMount() {
+    componentWillMount() {
         loadTodayTasks()
             .then(res => {
                 this.setState({
@@ -23,9 +23,11 @@ export default class HomePage extends Component {
         let date = new Date();
         let link = '/calendar/' + date.getFullYear() + '/' + date.getMonth() + '/' + date.getDate();
         return (
-            <Link to={link} activeClassName="btn btn-primary active">
-                <div className="h4 a-like">Click here to see them.</div>
-            </Link>
+            <div>
+                <Link to={link} activeClassName="btn btn-primary active">
+                    <span className="a-like">Click here to see today's tasks.</span>
+                </Link>
+            </div>
         );
     }
 
@@ -46,7 +48,7 @@ export default class HomePage extends Component {
             homeScreen = (
                 <div className="jumbotron text-center">
                     <p>You have <strong>{this.state.tasks}</strong> tasks scheduled for today!</p>
-                    {this.buildTodaysLink()}
+                    {this.buildTodaysLink()} or Use the <Link to="/calendar"><span className="a-like"><strong>Calendar</strong></span></Link> to add new tasks.
                 </div>
             )
         }

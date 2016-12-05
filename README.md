@@ -10,6 +10,6 @@ Teamwork project on **JSApps** course @ Softuni.bg
 * NodeJS
 * ReactJS
 * jQuery
-* Bootstrap 3.0
+* Bootstrap 3
 
 **Live demo:** https://vdonchev.github.io/CalendarPlus/
