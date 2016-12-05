@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {loadMonthTasks} from '../../models/task';
 import Calendar from './Calendar'
+import {validateLoggedInUser} from "../common/validator";
 
 export default class CalendarPage extends Component {
     constructor(props) {
@@ -57,7 +58,7 @@ export default class CalendarPage extends Component {
     }
 
     render() {
-        return (
+        return  validateLoggedInUser() || (
             <div>
                 <div>
                     <Calendar tasks={this.state.tasks} onMonthChange={this.updateTasks}/>
