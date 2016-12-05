@@ -6,3 +6,20 @@
     text-align: center;
     border: 1px solid #fefefe;
 }
+
+.loading {
+    display: block;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background: white;
+    color: black;
+    font-size: 1em;
+    padding: 1em;
+    text-align: center;
+    margin: 0 !important;
+    border: 0 solid transparent !important;
+    text-transform: uppercase;
+    box-shadow: 0 3px 5px rgba(0,0,0,0.1);
+}

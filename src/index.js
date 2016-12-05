@@ -14,7 +14,7 @@ import Edit from './components/Edit/EditPage';
 import Create from './components/Create/CreatePage';
 
 ReactDOM.render(
-    <Router history={browserHistory}>
+    <Router history={hashHistory}>
         <Route path="/" component={App}>
             <IndexRoute component={HomePage}/>
             <Route path="Calendar">

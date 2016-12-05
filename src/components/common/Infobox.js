@@ -12,6 +12,7 @@ export default class Infobox extends Component {
             style: 'info',
             visible: false
         };
+
         this.bindEventHandlers();
 
         // Register in the observer
@@ -40,7 +41,7 @@ export default class Infobox extends Component {
     }
 
     ajaxStart() {
-        this.setState({message: 'Loading...', style: 'info', visible: true});
+        this.setState({message: 'Loading...', style: 'loading', visible: true});
     }
 
     hide() {
@@ -83,6 +84,9 @@ export default class Infobox extends Component {
                 break;
             case 'success':
                 className += ' bg-success';
+                break;
+            case 'loading':
+                className += ' loading';
                 break;
             default:
                 className += ' bg-primary';
