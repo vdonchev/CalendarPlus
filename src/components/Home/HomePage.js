@@ -11,12 +11,14 @@ export default class HomePage extends Component {
     }
 
     componentWillMount() {
-        loadTodayTasks()
-            .then(res => {
-                this.setState({
-                    tasks: res.length || 0
-                })
-            });
+        if (sessionStorage.getItem('username')) {
+            loadTodayTasks()
+                .then(res => {
+                    this.setState({
+                        tasks: res.length || 0
+                    })
+                });
+        }
     }
 
     buildTodaysLink() {
@@ -48,7 +50,8 @@ export default class HomePage extends Component {
             homeScreen = (
                 <div className="jumbotron text-center">
                     <p>You have <strong>{this.state.tasks}</strong> tasks scheduled for today!</p>
-                    {this.buildTodaysLink()} or Use the <Link to="/calendar"><span className="a-like"><strong>Calendar</strong></span></Link> to add new tasks.
+                    {this.buildTodaysLink()} or Use the <Link to="/calendar"><span
+                    className="a-like"><strong>Calendar</strong></span></Link> to add new tasks.
                 </div>
             )
         }
