@@ -14,6 +14,7 @@ export default class LoginForm extends Component {
                         value={this.props.username}
                         disabled={this.props.submitDisabled}
                         onChange={this.props.onChangeHandler}
+                        placeholder="Username"
                     />
                 </div>
                 <div className="form-group">
@@ -26,6 +27,7 @@ export default class LoginForm extends Component {
                         value={this.props.password}
                         disabled={this.props.submitDisabled}
                         onChange={this.props.onChangeHandler}
+                        placeholder="Password"
                     />
                 </div>
                 <input className="btn btn-block btn-primary" type="submit" value="Login"

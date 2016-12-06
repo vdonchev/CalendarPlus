@@ -14,6 +14,7 @@ export default class RegisterForm extends Component {
                         value={this.props.username}
                         disabled={this.props.submitDisabled}
                         onChange={this.props.onChangeHandler}
+                        placeholder="Username"
                     />
                 </div>
                 <div className="form-group">
@@ -25,6 +26,7 @@ export default class RegisterForm extends Component {
                         value={this.props.password}
                         disabled={this.props.submitDisabled}
                         onChange={this.props.onChangeHandler}
+                        placeholder="Password"
                     />
                 </div>
                 <div className="form-group">
@@ -36,6 +38,7 @@ export default class RegisterForm extends Component {
                         value={this.props.repeat}
                         disabled={this.props.submitDisabled}
                         onChange={this.props.onChangeHandler}
+                        placeholder="Confirm Password"
                     />
                 </div>
                 <input className="btn btn-block btn-primary" type="submit" value="Register" disabled={this.props.submitDisabled}/>
