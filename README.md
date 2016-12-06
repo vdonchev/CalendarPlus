@@ -13,3 +13,7 @@ Teamwork project on **JSApps** course @ Softuni.bg
 * Bootstrap 3
 
 **Live demo:** https://vdonchev.github.io/CalendarPlus/
+
+**Demo login details:**
+- Username: `user`
+- Password: `pass`
