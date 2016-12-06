@@ -7,6 +7,7 @@ export default class LoginForm extends Component {
                 <div className="form-group">
                     <label>Username:</label>
                     <input
+                        style={this.props.userValidation}
                         className="form-control"
                         type="text"
                         name="username"
@@ -18,6 +19,7 @@ export default class LoginForm extends Component {
                 <div className="form-group">
                     <label>Password:</label>
                     <input
+                        style={this.props.passValidation}
                         className="form-control"
                         type="password"
                         name="password"
@@ -26,7 +28,8 @@ export default class LoginForm extends Component {
                         onChange={this.props.onChangeHandler}
                     />
                 </div>
-                <input className="btn btn-block btn-primary" type="submit" value="Login" disabled={this.props.submitDisabled}/>
+                <input className="btn btn-block btn-primary" type="submit" value="Login"
+                       disabled={this.props.submitDisabled}/>
             </form>
         );
     }

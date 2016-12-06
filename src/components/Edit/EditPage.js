@@ -9,6 +9,9 @@ export default class EditPage extends Component {
         super(props);
 
         this.state = {
+            bodyValidation: {'border': 'white'},
+            titleValidation: {'border': 'white'},
+            categoryValidation: {'border': 'white'},
             title: this.props,
             body: '',
             categoryId: '',
@@ -65,17 +68,32 @@ export default class EditPage extends Component {
         validateLoggedInUser();
 
         if (validateString(this.state.title)) {
-            this.setState({submitDisabled: false});
+            this.setState({
+                submitDisabled: false,
+                titleValidation: {'border': '3px solid red'},
+                bodyValidation: {'border': 'white'},
+                categoryValidation: {'border': 'white'}
+            });
             return;
-
         }
+
         if (validateString(this.state.body)) {
-            this.setState({submitDisabled: false});
+            this.setState({
+                submitDisabled: false,
+                bodyValidation: {'border': '3px solid red'},
+                titleValidation: {'border': 'white'},
+                categoryValidation: {'border': 'white'}
+            });
             return;
-
         }
+
         if (validateCategory(this.state.categoryId)) {
-            this.setState({submitDisabled: false});
+            this.setState({
+                submitDisabled: false,
+                categoryValidation: {'border': '3px solid red'},
+                titleValidation: {'border': 'white'},
+                bodyValidation: {'border': 'white'}
+            });
             return;
         }
 
@@ -88,11 +106,18 @@ export default class EditPage extends Component {
             dateId: this.state.dateId
         };
 
+        this.setState({
+            categoryValidation: {'border': 'white'},
+            titleValidation: {'border': 'white'},
+            bodyValidation: {'border': 'white'}
+        });
+
         edit(this.state.taskId, data, this.onSubmitResponse);
     }
 
     onSubmitResponse(response) {
         if (response) {
+
             this.context.router.push('/calendar');
         } else {
             this.setState({submitDisabled: false});
@@ -119,19 +144,22 @@ export default class EditPage extends Component {
 
     render() {
         return validateLoggedInUser() || (
-            <div>
-                <h1>Edit Task</h1>
-                <EditForm
-                    title={this.state.title}
-                    body={this.state.body}
-                    categoryId={this.state.categoryId}
-                    submitDisabled={this.state.submitDisabled}
-                    onChangeHandler={this.onChangeHandler}
-                    onSubmitHandler={this.onSubmitHandler}
-                    options={this.state.categories}
-                />
-            </div>
-        );
+                <div>
+                    <h1>Edit Task</h1>
+                    <EditForm
+                        title={this.state.title}
+                        body={this.state.body}
+                        categoryId={this.state.categoryId}
+                        submitDisabled={this.state.submitDisabled}
+                        onChangeHandler={this.onChangeHandler}
+                        onSubmitHandler={this.onSubmitHandler}
+                        options={this.state.categories}
+                        bodyValidation={this.state.bodyValidation}
+                        titleValidation={this.state.titleValidation}
+                        categoryValidation={this.state.categoryValidation}
+                    />
+                </div>
+            );
     }
 }
 

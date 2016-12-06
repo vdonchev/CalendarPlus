@@ -12,6 +12,9 @@ export default class CreatePage extends Component {
             title: '',
             body: '',
             categoryId: '',
+            titleValidation: {'border': '1px solid #ccc'},
+            bodyValidation: {'border': '1px solid #ccc'},
+            categoryValidation: {'border': '1px solid #ccc'},
             categories: [<option key='0' value=''>---Choose---</option>],
             submitDisabled: false
         };
@@ -49,20 +52,40 @@ export default class CreatePage extends Component {
         validateLoggedInUser();
 
         if (validateString(this.state.title)) {
-            this.setState({submitDisabled: false});
+            this.setState({
+                submitDisabled: false,
+                titleValidation: {'border': '3px solid red'},
+                bodyValidation: {'border': ''},
+                categoryValidation: {'border': ''}
+            });
             return;
-
         }
+
         if (validateString(this.state.body)) {
-            this.setState({submitDisabled: false});
+            this.setState({
+                submitDisabled: false,
+                bodyValidation: {'border': '3px solid red'},
+                titleValidation: {'border': ''},
+                categoryValidation: {'border': ''}
+            });
             return;
-
         }
+
         if (validateCategory(this.state.categoryId)) {
-            this.setState({submitDisabled: false});
+            this.setState({
+                submitDisabled: false,
+                categoryValidation: {'border': '3px solid red'},
+                titleValidation: {'border': ''},
+                bodyValidation: {'border': ''}
+            });
             return;
         }
 
+        this.setState({
+            bodyValidation: {'border': ''},
+            titleValidation: {'border': ''},
+            categoryValidation: {'border': ''}
+        });
 
         create(
             Number(this.props.params.day),
@@ -96,19 +119,22 @@ export default class CreatePage extends Component {
 
     render() {
         return validateLoggedInUser() || (
-            <div>
-                <h1>Create new task</h1>
-                <CreateForm
-                    title={this.state.title}
-                    body={this.state.body}
-                    categoryId={this.state.categoryId}
-                    submitDisabled={this.state.submitDisabled}
-                    onChangeHandler={this.onChangeHandler}
-                    onSubmitHandler={this.onSubmitHandler}
-                    options={this.state.categories}
-                />
-            </div>
-        );
+                <div>
+                    <h1>Create new task</h1>
+                    <CreateForm
+                        title={this.state.title}
+                        body={this.state.body}
+                        categoryId={this.state.categoryId}
+                        submitDisabled={this.state.submitDisabled}
+                        onChangeHandler={this.onChangeHandler}
+                        onSubmitHandler={this.onSubmitHandler}
+                        options={this.state.categories}
+                        bodyValidation={this.state.bodyValidation}
+                        titleValidation={this.state.titleValidation}
+                        categoryValidation={this.state.categoryValidation}
+                    />
+                </div>
+            );
     }
 }
 

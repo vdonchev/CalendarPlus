@@ -1,11 +1,18 @@
 import React, {Component} from 'react';
 import LoginForm from './LoginForm';
 import {login} from '../../models/user';
+import {validateString} from "../common/validator";
 
 export default class LoginPage extends Component {
     constructor(props) {
         super(props);
-        this.state = {username: '', password: '', submitDisabled: false};
+        this.state = {
+            username: '',
+            password: '',
+            submitDisabled: false,
+            userValidation: {'border': ''},
+            passValidation: {'border': ''}
+        };
         this.bindEventHandlers();
     }
 
@@ -31,7 +38,31 @@ export default class LoginPage extends Component {
 
     onSubmitHandler(event) {
         event.preventDefault();
-        this.setState({submitDisabled: true});
+
+        if (validateString(this.state.username)) {
+            this.setState({
+                submitDisabled: false,
+                userValidation: {'border': '3px solid red'},
+                passValidation: {'border': ''}
+            });
+            return;
+        }
+
+        if (validateString(this.state.password)) {
+            this.setState({
+                submitDisabled: false,
+                passValidation: {'border': '3px solid red'},
+                userValidation: {'border': ''}
+            });
+            return;
+        }
+
+        this.setState({
+            submitDisabled: true,
+            userValidation: {'border': ''},
+            passValidation: {'border': ''}
+        });
+
         login(this.state.username, this.state.password, this.onSubmitResponse);
     }
 
@@ -55,12 +86,15 @@ export default class LoginPage extends Component {
                         submitDisabled={this.state.submitDisabled}
                         onChangeHandler={this.onChangeHandler}
                         onSubmitHandler={this.onSubmitHandler}
+                        passValidation={this.state.passValidation}
+                        userValidation={this.state.userValidation}
                     />
                 </div>
             </div>
         );
     }
 }
+
 //attach the React router
 LoginPage.contextTypes = {
     router: React.PropTypes.object

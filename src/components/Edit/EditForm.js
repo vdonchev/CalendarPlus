@@ -7,7 +7,7 @@ export default class EditForm extends Component {
             <form onSubmit={this.props.onSubmitHandler}>
                 <div className="form-group">
                     <label>Title:</label>
-                    <input
+                    <input style={this.props.titleValidation}
                         className="form-control"
                         type="text"
                         name="title"
@@ -18,7 +18,7 @@ export default class EditForm extends Component {
                 </div>
                 <div className="form-group">
                     <label>Body:</label>
-                    <textarea
+                    <textarea style={this.props.bodyValidation}
                         className="form-control"
                         name="body"
                         value={this.props.body}
@@ -27,8 +27,8 @@ export default class EditForm extends Component {
                     />
                 </div>
                 <div className="form-group">
-                    <label>Category:</label>
-                    <select
+                    <label >Category:</label>
+                    <select style={this.props.categoryValidation}
                         className="form-control"
                         name="categoryId"
                         value={this.props.categoryId}
@@ -39,8 +39,9 @@ export default class EditForm extends Component {
                     </select>
 
                 </div>
-                <input className="btn btn-success btn-lg" type="submit" value="Submit task" disabled={this.props.submitDisabled}/>
+                <input className="btn btn-success btn-lg" type="submit" value="Submit task"
+                       disabled={this.props.submitDisabled}/>
             </form>
-        );
+        )
     }
 }
